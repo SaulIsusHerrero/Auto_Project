@@ -82,6 +82,7 @@ public class SelectCountryAndLanguage extends Base {
             }
         } else {
             //ASSERT: Verificación de que la imagen del selector de género no está habilitada
+            // Saul comment
             System.out.println("Gender selector image was not found");
         }
     }
