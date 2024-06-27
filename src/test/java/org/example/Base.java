@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 public class Base {
-    private static WebDriver driver;
+    protected static WebDriver driver;
     public Base(WebDriver driver) {
         this.driver = driver;
     }
