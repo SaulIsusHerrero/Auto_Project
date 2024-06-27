@@ -1,90 +1,121 @@
 package org.example;
 
-import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SelectCountryAndLanguage extends Base {
-    static By acceptCookiesLocator = By.id("onetrust-accept-btn-handler");
-    static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
-    static By selectCountrySelectorLocator = By.id("country-list-controls");
-    static By selectCountryLocatorArgentina = By.xpath("//span[text()='Argentina']");
-    static By selectCountryLocatorIreland = By.xpath("//span[text()='Ireland']");
-    static By selectCountryLocatorFrance = By.xpath("//span[text()='France']");
-    static By selectCountryLocatorMexico = By.xpath("//span[text()='Mexico']");
-    static By selectCountryLocatorEspaña = By.xpath("//span[text()='España']");
-    static By pressGOLocator = By.xpath("//button[@aria-label='Guardar']");
-    By genderImageLocator = By.cssSelector(".gender-selector__image");
-    By logoImageLocator = By.xpath("//h1[@class='super-home-gender-selector__title']//*[name()='svg']");
+import java.time.Duration;
 
+/** "Test 1 : Selecciona país/idioma" */
+public class SelectCountryAndLanguage extends Base {
+    protected static WebDriver driver;
+    static By acceptCookiesLocator = By.id("onetrust-accept-btn-handler");
+    static By comboboxSeleccionarPaís = By.id("country-list-controls");
+    //STATIC By selectCountryLocator = By.xpath("//span[text()='Ireland']");
+    static By selectCountryLocator = By.xpath("//span[text()='Germany']");
+    //static By selectCountryLocator = By.xpath("//span[text()='Mexico']");
+    //static By selectCountryLocator = By.xpath("//span[text()='España']");
+
+    static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
+    static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
+    static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
     public SelectCountryAndLanguage(WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     public static void selectCountryAndLanguage() throws InterruptedException {
         System.out.println("Se ha ejecutado el primer test");
         driver.manage().window().maximize();
         driver.get("https://www.bershka.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20L));
-        Thread.sleep(4000L);
+        // ASSERTS :
+        // 1º) ¿Se muestra el pop-up de cookies? -> Sí.
+        Object assertEquals = true;
+        boolean equals = assertEquals.equals(acceptCookiesLocator);
+        // 2º) ¿Hay un link a la politica de cookies que abre un pdf? -> Sí (aquí he encontrado un error porque NO abre una pestaña nueva).
+        // 3º) ¿Cuántos botones tiene el pop-up de cookies? -> 3.
+        // 4º) ¿Son clickables estos 3 botones anteriores? -> Sí.
+        // 5º) ¿El 1º y 2º botón son con texto de color blanco y background negro, y el 3º viceversa? -> Sí.
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        /** Aceptar pop-up de cookies */
         click(acceptCookiesLocator);
-        Thread.sleep(5000L);
+        // ASSERTS :
+        // 1º) ¿Se muestra el combobox con un valor por defecto? -> Sí.
+        // 2º) ¿Se muestra un listado horizontal de checkbox/es con el/los idioma/s del país por defecto? -> Sí.
+        // 3º) ¿Hay un footer con un listado de links? -> Sí.
+        // 4º) ¿Cuántos links tiene este listado anterior? -> 6.
+        // 5º) ¿Hay un texto en el margen inferior derecho con valor "© 2024 BERSHKA"? -> Sí.
+        /** Localizar Elemento combobox "Seleccionar País" con id */
+        if(isDisplayed(comboboxSeleccionarPaís)){
+            /** Click en el Combobox */
+            click(comboboxSeleccionarPaís);
+            Thread.sleep(3000);
+        } else{
+            System.out.println("Countries list was not found");
+        }
+        /** Localizar Elemento "País" con xpath de text()) */
+        if (isDisplayed(selectCountryLocator)){
+            /** Elegir país*/
+            click(selectCountryLocator);
+            // ASSERTS - seleccionamos Ireland :
+            // 1º) ¿Se muestra seleccionado "Ireland" en el combobox? -> Sí.
+            // 2º) ¿Cuántos idiomas se muestran para este país? -> 1. ¿Y cual és? -> EN.
+            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
+            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
+            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
 
-        // Seleccionar países
-        selectCountry("Argentina");
-        selectCountry("Ireland");
-        selectCountry("France");
-        selectCountry("Mexico");
-        selectCountry("España");
+            // ASSERTS - seleccionamos Germany :
+            // 1º) ¿Se muestra seleccionado "Germany" en el combobox? -> Sí.
+            // 2º) ¿Cuántos idiomas se muestran para este país? -> 2. ¿Y cuales son? -> DE y EN.
+            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
+            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
+            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
 
-        // Seleccionar idioma
+            // ASSERTS - seleccionamos Mexico :
+            // 1º) ¿Se muestra seleccionado "Mexico" en el combobox? -> Sí.
+            // 2º) ¿Cuántos idiomas se muestran para este país? -> 2. ¿Y cuales son? -> ES y EN.
+            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
+            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
+            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
+
+            // ASSERTS - seleccionamos España :
+            // 1º) ¿Se muestra seleccionado "España" en el combobox? -> Sí.
+            // 2º) ¿Cuántos idiomas se muestran para este país? -> 5. ¿Y cuales son? -> ES-CA-GL-EU y EN.
+            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
+            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
+            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
+        }
+
+        /** Elegir idioma prueba */
         if (isDisplayed(selectLanguageLocator)) {
-            //ASSERT: Verificación de que el idioma 'EN' está disponible
             click(selectLanguageLocator);
-            Thread.sleep(2000L);
+            // ASSERTS - seleccionar idioma para caso France :
+            // 1º ¿Se muestra seleccionado por defecto el primer elemento de la lista horizontal? -> Sí.
+            // 2º ¿Cuál es este primer elemento? -> FR.
+            // 3º ¿El idioma que selecciono se muestra en blanco el texto y en negro el background? ¿y el resto viceversa ? -> Sí.
+            // 4º ¿Se muestra visible el literal "Selecciona tu idioma"? -> Sí.
         } else {
-            //ASSERT: Verificación de que el idioma 'EN' NO está disponible
-            System.out.println("Language 'EN' was not found");
+            System.out.println("Language was not found");
         }
-
-        // Hacer clic en el botón Guardar
+        /**Click para acceder a la web ya seleccionado país e idioma*/
         if (isDisplayed(pressGOLocator)){
-            //ASSERT: Verificación de que el botón Guardar está disponible
-            System.out.println("Es accesible el boton GUARDAR");
+            // ASSERTS - se muestra el botón guardar :
+            // 1º ¿Se muestra el botón GUARDAR? -> Sí.
+            // 2º ¿Es clickable este botón? -> Sí.
+            // 3º ¿Al hacer hover con el cursor sobre este botón se realiza el efecto iluminarse? -> Sí.
+            // 4º ¿Al clickar en el mismo a que URL redirige? -> a https://www.bershka.com/es/en (para el caso de España y idioma Inglés).
+            System.out.println("Es accesible el botón GO!");
             click(pressGOLocator);
-            Thread.sleep(5000L);
-        } else {
-            //ASSERT: Verificación de que el botón Guardar no está disponible
-            System.out.println("El botón GUARDAR no es accesible");
+
+        }
+        if (isDisplayed(pressGuardarLocator)){
+            System.out.println("Es accesible el botón GUARDAR para avanzar segunda prueba Elia");
+            click(pressGuardarLocator);
+            // ASSERTS - Llegamos a HOME (Selector de género) :
+            // 1º ¿Se muestra el logo? -> Sí.
+            // 2º ¿Cuántos géneros se muestran? -> 3.
+            // 3º ¿Se muestra el pop-up de guardar tu ubicación? -> Sí.
+            // 4º ¿Se muestra el botón de pais/idioma en el footer? -> Sí.
+            // 5º ¿Qué valores se muestran en este botón para el caso de España con idioma Inglés? -> "España|Ingles"
         }
     }
-
-    private static void selectCountry(String country) throws InterruptedException {
-        click(selectCountrySelectorLocator);
-        Thread.sleep(2000L);
-        By countryLocator = By.xpath("//span[text()='" + country + "']");
-        click(countryLocator);
-        Thread.sleep(2000L);
-    }
-
-    public void webAccess() throws InterruptedException {
-        click(pressGOLocator);
-        Thread.sleep(5000L);
-        if (this.isEnabled(this.genderImageLocator)) {
-            click(this.genderImageLocator);
-            Thread.sleep(5000L);
-            if (isDisplayed(this.logoImageLocator)) {
-                //ASSERT: Verificación de que la imagen del logo está visible
-                System.out.println("TEST 1 PASSED : Logo image found");
-            } else {
-                //ASSERT: Verificación de que la imagen del logo no está visible
-                System.out.println("Logo image was not found");
-            }
-        } else {
-            //ASSERT: Verificación de que la imagen del selector de género no está habilitada
-            // Saul comment
-            System.out.println("Gender selector image was not found");
-        }
-    }
-
 }

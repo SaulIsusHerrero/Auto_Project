@@ -17,7 +17,7 @@ public class Test_1_Select_Country_Language {
         chromeOptions.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(chromeOptions);
         selectCountryAndLanguage = new SelectCountryAndLanguage(driver);
-        }
+    }
 
     @AfterEach
     public void closeDriver(){
@@ -30,5 +30,5 @@ public class Test_1_Select_Country_Language {
 
     public void test_1_LanguageAndGo() throws InterruptedException {
         SelectCountryAndLanguage.selectCountryAndLanguage();
-        }
     }
+}
