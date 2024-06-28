@@ -2,6 +2,7 @@ package org.example;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import java.time.Duration;
 
@@ -29,6 +30,19 @@ public class SelectCountryAndLanguage extends Base {
         driver.get("https://www.bershka.com/");
         // ASSERTS :
         // 1º) ¿Se muestra el pop-up de cookies? -> Sí.
+        //Comprueba que la condicion buleana de dentro del parantesis , sea cierta
+        Assert.assertTrue(true, " Error, este parametro no es true.");
+        //Comprobar si dos valores son iguales.
+        Assert.assertEquals("Hola Julio", "Hola Maria", "Mensaje de error para imprimir por pantalla" );
+        //Comprobar si es false
+        if(Base.isDisplayed(acceptCookiesLocator)){
+            System.out.println("el selector está en la pantalla");
+        }else{
+            Assert.fail("Error, el selector no estaba en la pantalla");
+        }
+
+        
+
         Object assertEquals = true;
         boolean equals = assertEquals.equals(acceptCookiesLocator);
         // 2º) ¿Hay un link a la politica de cookies que abre un pdf? -> Sí (aquí he encontrado un error porque NO abre una pestaña nueva).
