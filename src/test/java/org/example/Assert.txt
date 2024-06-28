@@ -1,0 +1,14 @@
+ Explicación de los asserts:
+
+Comprueba que la condicion buleana de dentro del parantesis , sea cierta
+Assert.assertTrue(true, " Error, este parametro no es true.");
+
+Comprobar si dos valores son iguales.
+Assert.assertEquals("Hola Julio", "Hola Maria", "Mensaje de error para imprimir por pantalla" );
+
+ Comprobar si es false
+ if(Base.isDisplayed(acceptCookiesLocator)){
+    System.out.println("el selector está en la pantalla");
+ }else{
+    Assert.fail("Error, el selector no estaba en la pantalla");
+ }
