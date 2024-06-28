@@ -29,9 +29,13 @@ public class SelectCountryAndLanguage extends Base {
         driver.manage().window().maximize();
         driver.get("https://www.bershka.com/");
         // ASSERTS :
+        boolean cookiesPopUp = false;
+        cookiesPopUp = isDisplayed(acceptCookiesLocator);
+        Assert.assertTrue(cookiesPopUp, "No se muestra el pop up de cookies");
         // 1º) ¿Se muestra el pop-up de cookies? -> Sí.
         //Comprueba que la condicion buleana de dentro del parantesis , sea cierta
-        Assert.assertTrue(true, " Error, este parametro no es true.");
+        /**Assert.assertTrue(true, " Error, este parametro no es true.");
+
         //Comprobar si dos valores son iguales.
         Assert.assertEquals("Hola Julio", "Hola Maria", "Mensaje de error para imprimir por pantalla" );
         //Comprobar si es false
@@ -39,7 +43,7 @@ public class SelectCountryAndLanguage extends Base {
             System.out.println("el selector está en la pantalla");
         }else{
             Assert.fail("Error, el selector no estaba en la pantalla");
-        }
+        }**/
 
         
 
