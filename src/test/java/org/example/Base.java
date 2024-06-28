@@ -42,6 +42,7 @@ public class Base {
             return false;
         }
     }
+
     public Boolean isEnabled(By locator) {
         try {
             return driver.findElement(locator).isDisplayed();
