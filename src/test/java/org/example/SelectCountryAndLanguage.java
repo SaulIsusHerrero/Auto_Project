@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.Locale;
 
 /** "Test 1 : Selecciona país/idioma" */
 public class SelectCountryAndLanguage extends Base {
@@ -19,6 +20,8 @@ public class SelectCountryAndLanguage extends Base {
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
     static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
+
+
     public SelectCountryAndLanguage(WebDriver driver) {
         super(driver);
         this.driver = driver;
@@ -47,10 +50,11 @@ public class SelectCountryAndLanguage extends Base {
 
         
 
-        Object assertEquals = true;
-        boolean equals = assertEquals.equals(acceptCookiesLocator);
         // 2º) ¿Hay un link a la politica de cookies que abre un pdf? -> Sí (aquí he encontrado un error porque NO abre una pestaña nueva).
         // 3º) ¿Cuántos botones tiene el pop-up de cookies? -> 3.
+        String botonAceptarCookiesTexto = "";
+        botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
+        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas las cookies", "Error, el botón de aceptar el texto del pop up de aceptar cookies no es el correcto");
         // 4º) ¿Son clickables estos 3 botones anteriores? -> Sí.
         // 5º) ¿El 1º y 2º botón son con texto de color blanco y background negro, y el 3º viceversa? -> Sí.
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
