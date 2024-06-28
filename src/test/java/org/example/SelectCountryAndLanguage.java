@@ -2,6 +2,9 @@ package org.example;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
@@ -31,6 +34,12 @@ public class SelectCountryAndLanguage extends Base {
         System.out.println("Se ha ejecutado el primer test");
         driver.manage().window().maximize();
         driver.get("https://www.bershka.com/");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement element= wait.until(ExpectedConditions.visibilityOfElementLocated(acceptCookiesLocator));
+            } catch (Exception e) {
+            System.out.println("El elemento no es visible dentro del tiempo esperado");
+        }
         // ASSERTS :
         boolean cookiesPopUp = false;
         cookiesPopUp = isDisplayed(acceptCookiesLocator);
@@ -72,7 +81,7 @@ public class SelectCountryAndLanguage extends Base {
             click(comboboxSeleccionarPaís);
             Thread.sleep(3000);
         } else{
-            System.out.println("Countries list was not found");
+            Assert.fail("ERROR: No se muestra el combox de selección de país");
         }
         /** Localizar Elemento "País" con xpath de text()) */
         if (isDisplayed(selectCountryLocator)){
@@ -119,7 +128,10 @@ public class SelectCountryAndLanguage extends Base {
             System.out.println("Language was not found");
         }
         /**Click para acceder a la web ya seleccionado país e idioma*/
-        if (isDisplayed(pressGOLocator)){
+        if (isDisplayed(pressGOLocator)) {
+            boolean gobuttonExists = false;
+            boolean buttonGo = isDisplayed(acceptCookiesLocator);
+            Assert.assertTrue(cookiesPopUp, "No se muestra el pop up de cookies");
             // ASSERTS - se muestra el botón guardar :
             // 1º ¿Se muestra el botón GUARDAR? -> Sí.
             // 2º ¿Es clickable este botón? -> Sí.
