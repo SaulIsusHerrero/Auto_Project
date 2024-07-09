@@ -48,8 +48,7 @@ public class SelectCountryAndLanguage extends Base {
         cookiesPopUp = isDisplayed(acceptCookiesLocator);
         Assert.assertTrue(cookiesPopUp, "No se muestra el pop up de cookies");
 
-        //@todo poner todos los pasos y quitas cosas que sobren
-
+        //@SAUL: todo poner todos los pasos y quitas cosas que sobren
 
         // 2º) ¿Hay un link a la politica de cookies que abre un pdf? -> Sí (aquí he encontrado un error porque NO abre una pestaña nueva).
         //@todo click (driver.findElement(selector).click()
@@ -89,13 +88,8 @@ public class SelectCountryAndLanguage extends Base {
         if (isDisplayed(selectCountryLocator)) {
             /** Elegir país*/
             click(selectCountryLocator);
-            // ASSERTS - seleccionamos Ireland :
-            // 1º) ¿Se muestra seleccionado "Ireland" en el combobox? -> Sí.
-            // 2º) ¿Cuántos idiomas se muestran para este país? -> 1. ¿Y cual és? -> EN.
-
             //@todo comprobar que el localizador del checkbox esta visible
             // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
-
             // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
             // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
             //@todo comprobar que esta presente el botón guardar o go .
@@ -106,31 +100,12 @@ public class SelectCountryAndLanguage extends Base {
             // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
             // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
             // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
-
-            // ASSERTS - seleccionamos Mexico :
-            // 1º) ¿Se muestra seleccionado "Mexico" en el combobox? -> Sí.
-            // 2º) ¿Cuántos idiomas se muestran para este país? -> 2. ¿Y cuales son? -> ES y EN.
-            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
-            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
-            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
-
-            // ASSERTS - seleccionamos España :
-            // 1º) ¿Se muestra seleccionado "España" en el combobox? -> Sí.
-            // 2º) ¿Cuántos idiomas se muestran para este país? -> 5. ¿Y cuales son? -> ES-CA-GL-EU y EN.
-            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
-            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
-            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
         }
 
         /** Elegir idioma prueba */
         if (isDisplayed(selectLanguageLocator)) {
             click(selectLanguageLocator);
-            // ASSERTS - seleccionar idioma para caso France :
-            // 1º ¿Se muestra seleccionado por defecto el primer elemento de la lista horizontal? -> Sí.
-            // 2º ¿Cuál es este primer elemento? -> FR.
-            // 3º ¿El idioma que selecciono se muestra en blanco el texto y en negro el background? ¿y el resto viceversa ? -> Sí.
-            // 4º ¿Se muestra visible el literal "Selecciona tu idioma"? -> Sí.
-        } else {
+            } else {
             System.out.println("Language was not found"); //@todo Assert
         }
         /**Click para acceder a la web ya seleccionado país e idioma*/
@@ -157,7 +132,6 @@ public class SelectCountryAndLanguage extends Base {
             // 4º ¿Se muestra el botón de pais/idioma en el footer? -> Sí.
             // 5º ¿Qué valores se muestran en este botón para el caso de España con idioma Inglés? -> "España|Ingles"
         }
-
         //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
     }
 }
