@@ -156,7 +156,7 @@ public class SelectCountryAndLanguage extends Base {
         if (isDisplayed(pressGuardarLocator)) {
             System.out.println("Es accesible el botón GUARDAR para avanzar segunda prueba Elia");
             click(pressGuardarLocator);
-            // ASSERTS - Llegamos a HOME (Selector de género) :
+            // ASSERTS - Llegamos a hOME (Selector de género) :
             // 1º ¿Se muestra el logo? -> Sí.
             // 2º ¿Cuántos géneros se muestran? -> 3.
             // 3º ¿Se muestra el pop-up de guardar tu ubicación? -> Sí.
@@ -165,5 +165,6 @@ public class SelectCountryAndLanguage extends Base {
         }
 
         //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
+        //Hola
     }
 }
