@@ -6,11 +6,9 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 public class Base {
+    //1º Variables
     protected static WebDriver driver;
-    public Base(WebDriver driver) {
-        this.driver = driver;
-    }
-
+    //2º Locators
     public WebElement findElement(By locator) {
         return driver.findElement(locator);
     }
@@ -26,7 +24,11 @@ public class Base {
     public String getText(By locator) {
         return driver.findElement(locator).getText();
     }
-
+    //3º Constructor
+    public Base(WebDriver driver) {
+        this.driver = driver;
+    }
+    //4º Methods
     public void type(String inputText, By locator) {
         driver.findElement(locator).sendKeys(inputText);
     }
