@@ -12,7 +12,7 @@ import java.util.Locale;
 
 /*"Test 1 : Selecciona país/idioma"*/
 public class SelectCountryAndLanguage extends Base {
-    //@SAUL : todo clean code el código. toda clase de page object tiene que tener declaración de variables, declaración de selectores, constructor,metodos
+    //@SAUL: todo clean code el código. toda clase de page object tiene que tener declaración de variables, declaración de selectores, constructor,metodos
     //1º Variables
     protected static WebDriver driver;
 
