@@ -46,7 +46,7 @@ public class SelectCountryAndLanguage extends Base {
         }
         boolean cookiesPopUp = false;
         cookiesPopUp = isDisplayed(acceptCookiesLocator);
-        Assert.assertTrue(cookiesPopUp, "No se muestra el pop up de cookies");
+        Assert.assertTrue(cookiesPopUp, "No es mostrado el pop up de cookies");
 
         //@SAUL: todo poner todos los pasos y quitas cosas que sobren
 
