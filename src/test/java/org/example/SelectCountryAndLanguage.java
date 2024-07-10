@@ -48,8 +48,7 @@ public class SelectCountryAndLanguage extends Base {
         } catch (Exception e) {
             System.out.println("El elemento no es visible dentro del tiempo esperado");
         }
-        boolean cookiesPopUp = false;
-        cookiesPopUp = isDisplayed(acceptCookiesLocator);
+        boolean cookiesPopUp = isDisplayed(acceptCookiesLocator);
         Assert.assertTrue(cookiesPopUp, "No se muestra el pop up de cookies");
 
         //@todo poner todos los pasos y quitas cosas que sobren
@@ -60,10 +59,11 @@ public class SelectCountryAndLanguage extends Base {
         //@todo click (driver.findElement(selector).click()
 
         // 3º) ¿Cuántos botones tiene el pop-up de cookies? -> 3.
-        //@todo comprobar que aparece el texto de lso tres botones
-        String botonAceptarCookiesTexto = "";
-        botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas las cookies", "Error, el botón de aceptar el texto del pop up de aceptar cookies no es el correcto");
+        //@todo comprobar que aparece el texto de los tres botones
+        String actualText = driver.findElement(acceptCookiesLocator).getText();
+        System.out.println("Texto actual del botón de aceptar cookies: " + actualText);
+        String expectedText = "ACCEPT ALL COOKIES";
+        Assert.assertEquals(actualText, expectedText, "Error, el botón de aceptar el texto del pop up de aceptar cookies no es el correcto");
 
         // 4º) ¿Son clickables estos 3 botones anteriores? -> Sí.
         //@todo buscar en internet como se comprueba si algo es clicable
@@ -104,7 +104,7 @@ public class SelectCountryAndLanguage extends Base {
 
             // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
             // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
-            //@todo comprobar que esta presente el botón guardar o go .
+            //@todo comprobar que esta presente el botón guardar o go.
 
             // ASSERTS - seleccionamos Germany :
             // 1º) ¿Se muestra seleccionado "Germany" en el combobox? -> Sí.
@@ -166,5 +166,6 @@ public class SelectCountryAndLanguage extends Base {
 
         //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
         //Hola
+        //Colo-colo   
     }
 }
