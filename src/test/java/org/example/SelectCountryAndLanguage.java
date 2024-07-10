@@ -18,11 +18,14 @@ public class SelectCountryAndLanguage extends Base {
 
     //2º Locators
     static By acceptCookiesLocator = By.id("onetrust-accept-btn-handler");
+    static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
+    static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
     static By comboboxSeleccionarPaís = By.id("country-list-controls");
     static By selectCountryLocator = By.xpath("//span[text()='Germany']");
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
     static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
+    static By PolicyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -44,35 +47,37 @@ public class SelectCountryAndLanguage extends Base {
         } catch (Exception e) {
             System.out.println("El elemento no es visible dentro del tiempo esperado");
         }
-        boolean cookiesPopUp = false;
-        cookiesPopUp = isDisplayed(acceptCookiesLocator);
+        boolean cookiesPopUp = isDisplayed(acceptCookiesLocator);
         Assert.assertTrue(cookiesPopUp, "No es mostrado el pop up de cookies");
 
         //@SAUL: todo poner todos los pasos y quitas cosas que sobren
 
-        // 2º) ¿Hay un link a la politica de cookies que abre un pdf? -> Sí (aquí he encontrado un error porque NO abre una pestaña nueva).
-        //@todo click (driver.findElement(selector).click()
+        //@SAUL: todo verificar que existe el link de la política de privacidad
+        if(Base.isDisplayed(PolicyLink)){
+            System.out.println("se muestra el link de la política de privacidad.");
+        }else{
+            Assert.fail("Error, no se muestra el link de la política de privacidad.");
+        }
+        //driver.findElement(PolicyLink).click(); Se comenta esta linea porque al no abrir el PDF en otra pestaña del browser el test no prosigue
 
-        // 3º) ¿Cuántos botones tiene el pop-up de cookies? -> 3.
-        //@todo comprobar que aparece el texto de lso tres botones
+        //@SAUL: todo comprobar que aparece el texto de los tres botones
         String botonAceptarCookiesTexto = "";
+        String botonRechazarOpcionales = "";
+        String botonConfiguracionCookies = "";
         botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas las cookies", "Error, el botón de aceptar el texto del pop up de aceptar cookies no es el correcto");
+        botonRechazarOpcionales = driver.findElement(rejectOptionalCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
+        botonConfiguracionCookies = driver.findElement(cookiesConfiguration).getText().trim().toLowerCase(Locale.ROOT);
+        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas las cookies", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
+        Assert.assertEquals(botonRechazarOpcionales, "rechazar opcionales", "Error, el texto del botón de rechazar las cookies opcionales no es el correcto");
+        Assert.assertEquals(botonConfiguracionCookies, "configuración de cookies", "Error, el texto del botón de configuración de cookies no es el correcto");
 
-        // 4º) ¿Son clickables estos 3 botones anteriores? -> Sí.
         //@todo buscar en internet como se comprueba si algo es clicable
 
-        // 5º) ¿El 1º y 2º botón son con texto de color blanco y background negro, y el 3º viceversa? -> Sí.
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         /** Aceptar pop-up de cookies */
         click(acceptCookiesLocator);
-        // ASSERTS :
-        // 1º) ¿Se muestra el combobox con un valor por defecto? -> Sí.
-        // 2º) ¿Se muestra un listado horizontal de checkbox/es con el/los idioma/s del país por defecto? -> Sí.
-        // 3º) ¿Hay un footer con un listado de links? -> Sí.
         //@todo comprobar que los links están
-        // 4º) ¿Cuántos links tiene este listado anterior? -> 6.
-        // 5º) ¿Hay un texto en el margen inferior derecho con valor "© 2024 BERSHKA"? -> Sí.
+
         //@todo comprobar el texto
         /** Localizar Elemento combobox "Seleccionar País" con id */
         if (isDisplayed(comboboxSeleccionarPaís)) {
@@ -89,17 +94,8 @@ public class SelectCountryAndLanguage extends Base {
             /** Elegir país*/
             click(selectCountryLocator);
             //@todo comprobar que el localizador del checkbox esta visible
-            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
-            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
-            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
-            //@todo comprobar que esta presente el botón guardar o go .
 
-            // ASSERTS - seleccionamos Germany :
-            // 1º) ¿Se muestra seleccionado "Germany" en el combobox? -> Sí.
-            // 2º) ¿Cuántos idiomas se muestran para este país? -> 2. ¿Y cuales son? -> DE y EN.
-            // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
-            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
-            // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
+            //@todo comprobar que esta presente el botón guardar o go .
         }
 
         /** Elegir idioma prueba */
@@ -113,11 +109,6 @@ public class SelectCountryAndLanguage extends Base {
             boolean gobuttonExists = false;
             boolean buttonGo = isDisplayed(acceptCookiesLocator);
             Assert.assertTrue(cookiesPopUp, "No se muestra el pop up de cookies");
-            // ASSERTS - se muestra el botón guardar :
-            // 1º ¿Se muestra el botón GUARDAR? -> Sí.
-            // 2º ¿Es clickable este botón? -> Sí.
-            // 3º ¿Al hacer hover con el cursor sobre este botón se realiza el efecto iluminarse? -> Sí.
-            // 4º ¿Al clickar en el mismo a que URL redirige? -> a https://www.bershka.com/es/en (para el caso de España y idioma Inglés).
             System.out.println("Es accesible el botón GO!");
             click(pressGOLocator);
 
@@ -125,12 +116,6 @@ public class SelectCountryAndLanguage extends Base {
         if (isDisplayed(pressGuardarLocator)) {
             System.out.println("Es accesible el botón GUARDAR para avanzar segunda prueba Elia");
             click(pressGuardarLocator);
-            // ASSERTS - Llegamos a HOME (Selector de género) :
-            // 1º ¿Se muestra el logo? -> Sí.
-            // 2º ¿Cuántos géneros se muestran? -> 3.
-            // 3º ¿Se muestra el pop-up de guardar tu ubicación? -> Sí.
-            // 4º ¿Se muestra el botón de pais/idioma en el footer? -> Sí.
-            // 5º ¿Qué valores se muestran en este botón para el caso de España con idioma Inglés? -> "España|Ingles"
         }
         //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
     }
