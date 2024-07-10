@@ -90,9 +90,9 @@ public class SelectCountryAndLanguage extends Base {
             click(selectCountryLocator);
             //@todo comprobar que el localizador del checkbox esta visible
             // 3º) ¿Se muestra visible el checkbox de "Recordar mi selección? -> Sí.
-            // 4º) ¿Es desmarcable/marcable este checkbox? -> Sí.
+            // 4º) ¿Es desmarcable o marcable este checkbox? -> Sí.
             // 5º) ¿Se muestra visible el botón "GUARDAR" ó "GO!"? -> Sí.
-            //@todo comprobar que esta presente el botón guardar o go .
+            //@todo comprobar que esta presente el botón guardar o el botón go .
 
             // ASSERTS - seleccionamos Germany :
             // 1º) ¿Se muestra seleccionado "Germany" en el combobox? -> Sí.
