@@ -8,9 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Test_1_Select_Country_Language {
+    //1º Variables
     private WebDriver driver;
     SelectCountryAndLanguage selectCountryAndLanguage;
-
+    //2º Methods
     @BeforeEach
     public void setUp() {
         ChromeOptions chromeOptions = new ChromeOptions();
