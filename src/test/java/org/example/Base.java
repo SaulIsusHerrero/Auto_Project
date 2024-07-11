@@ -3,7 +3,10 @@ package org.example;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 public class Base {
     //1º Variables
@@ -51,5 +54,19 @@ public class Base {
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         }
+    }
+
+    public static void dynamicWait(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        } catch (Exception e) {
+            System.out.println("El elemento no es visible dentro del tiempo esperado");
+        }
+    }
+
+    public static void clickAndWait(By locator){
+        dynamicWait(locator);
+        click(locator);
     }
 }

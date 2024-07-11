@@ -25,7 +25,8 @@ public class SelectCountryAndLanguage extends Base {
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
     static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
-    static By PolicyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
+    static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
+    static By womanLink = By.xpath("//a[@href='/es/h-woman.html']");
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -53,12 +54,12 @@ public class SelectCountryAndLanguage extends Base {
         //@SAUL: todo poner todos los pasos y quitas cosas que sobren
 
         //@SAUL: todo verificar que existe el link de la política de privacidad
-        if(Base.isDisplayed(PolicyLink)){
+        if(Base.isDisplayed(policyLink)){
             System.out.println("se muestra el link de la política de privacidad.");
         }else{
             Assert.fail("Error, no se muestra el link de la política de privacidad.");
         }
-        //driver.findElement(PolicyLink).click(); Se comenta esta linea porque al no abrir el PDF en otra pestaña del browser el test no prosigue
+        //driver.findElement(policyLink).click(); Se comenta esta linea porque al no abrir el PDF en otra pestaña del browser el test no prosigue
 
         //@SAUL: todo comprobar que aparece el texto de los tres botones
         String botonAceptarCookiesTexto = "";
@@ -116,7 +117,10 @@ public class SelectCountryAndLanguage extends Base {
         if (isDisplayed(pressGuardarLocator)) {
             System.out.println("Es accesible el botón GUARDAR para avanzar segunda prueba Elia");
             click(pressGuardarLocator);
+        } else {
+            Assert.fail(null);
         }
+        clickAndWait(womanLink);
         //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
     }
 }
