@@ -122,5 +122,19 @@ public class SelectCountryAndLanguage extends Base {
         }
         clickAndWait(womanLink);
         //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
+
+
+        //@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
+        //@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
+
+        //@todo (comprobar que no hay elementos, la cesta está vacia)
+        //@todo click en descubrir -- te lleva a descubrir nuevos productos
+        //@todo assert para comprobar que se abre la página "New"  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
+        //@todo click en la opción "Jeans"
+        //@todo Categoría: Difícil-->comprobar que se activa el botón "jeans" Pista: en el localizador del botón, cuando se clica uno de los atributos también cambia :)
+        //@todo volver a clicar en el símbolo de la cesta
+        //@todo click en favoritos
+        //@todo verificar con assert que estoy en la página de favoritos  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
+        //@todo verificar que no hay nada en favoritos
     }
 }
