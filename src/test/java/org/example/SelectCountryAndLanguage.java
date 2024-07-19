@@ -27,6 +27,8 @@ public class SelectCountryAndLanguage extends Base {
     static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
     static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
     static By womanLink = By.xpath("//a[@href='/es/h-woman.html']");
+    static By cartButton = By.id("aria-button-shopcart");
+    static By wishListButton = By.xpath("//a[@href='/es/wish-list.html']");
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -132,9 +134,12 @@ public class SelectCountryAndLanguage extends Base {
         //@todo assert para comprobar que se abre la página "New"  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
         //@todo click en la opción "Jeans"
         //@todo Categoría: Difícil-->comprobar que se activa el botón "jeans" Pista: en el localizador del botón, cuando se clica uno de los atributos también cambia :)
-        //@todo volver a clicar en el símbolo de la cesta
-        //@todo click en favoritos
+        //@SAUL todo volver a clicar en el símbolo de la cesta
+        clickAndWait(cartButton);
+        //@SAUL todo click en favoritos
+        clickAndWait(wishListButton);
         //@todo verificar con assert que estoy en la página de favoritos  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
+
         //@todo verificar que no hay nada en favoritos
     }
 }
