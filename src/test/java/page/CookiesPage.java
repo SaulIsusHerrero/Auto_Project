@@ -74,7 +74,7 @@ public class CookiesPage extends Base {
         botonRechazarOpcionales = driver.findElement(rejectOptionalCookiesLocator).getText().trim();
         if (botonRechazarOpcionales.equalsIgnoreCase(Constants.REJECT_COOKIES_MESAGE_ENG)
                 || botonRechazarOpcionales.equalsIgnoreCase(Constants.REJECT_COOKIES_MESAGE_ESP)) {
-            System.out.println("Se ha comprobado el texto del botón aceptar cookies.");
+            System.out.println("Se ha comprobado el texto del botón rechazar cookies.");
         } else {
             Assert.fail("Error, el texto del botón de rechazar las cookies opcionales no es el correcto");
         }
@@ -88,7 +88,7 @@ public class CookiesPage extends Base {
         botonConfiguracionCookies = driver.findElement(cookiesConfiguration).getText().trim().toLowerCase(Locale.ROOT);
         if (botonConfiguracionCookies.equalsIgnoreCase(Constants.CONFIGURATION_COOKIES_MESAGE_ESP)
                 || botonConfiguracionCookies.equalsIgnoreCase(Constants.CONFIGURATION_COOKIES_MESAGE_ENG)) {
-            System.out.println("Se ha comprobado el texto del botón aceptar cookies.");
+            System.out.println("Se ha comprobado el texto del botón configuración cookies.");
         } else {
             Assert.fail("Error, el texto del botón de configuración de cookies no es el correcto");
         }
