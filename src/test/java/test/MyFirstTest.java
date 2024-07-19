@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class MyFirstTest  {
     //1º Variables
     private WebDriver driver;
-    Step step = new Step(driver);
+    Step step;
 
 
     //2º Methods
@@ -22,6 +22,7 @@ public class MyFirstTest  {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(chromeOptions);
+        step = new Step(driver);
     }
 
     @AfterEach
@@ -32,7 +33,6 @@ public class MyFirstTest  {
 
     @org.junit.jupiter.api.Test
     @DisplayName("Test 1 : Selecciona país/idioma y encuentra el logo de BERSHKA")
-
     public void test_1_my_fist_test()  {
 
         step.goTo();
