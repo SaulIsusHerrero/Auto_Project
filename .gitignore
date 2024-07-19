@@ -1,3 +1,16 @@
 
 .idea/misc.xml
 /target/test-classes/classpath.index
+target/test-classes/org/example/Base.class
+target/test-classes/org/example/Environments.class
+target/test-classes/org/example/Pages/CookiesPage.class
+target/test-classes/org/example/Pages/CountryPage.class
+target/test-classes/org/example/Pages/SuperHomePage.class
+target/test-classes/org/example/SelectCountryAndLanguage.class
+target/test-classes/org/example/Step/Step.class
+target/test-classes/page/CookiesPage.class
+target/test-classes/page/CountryPage.class
+target/test-classes/page/SuperHomePage.class
+target/test-classes/Step/Step.class
+target/test-classes/test/MyFirstTest.class
+target/test-classes/test/MyFirstTest_bis.class
