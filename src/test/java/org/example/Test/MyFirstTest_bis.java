@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 
 
-public class MyFirstTest  {
+public class MyFirstTest_bis {
     //1º Variables
     private WebDriver driver;
     Step step = new Step(driver);
