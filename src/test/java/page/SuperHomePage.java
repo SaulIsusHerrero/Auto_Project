@@ -10,7 +10,7 @@ public class SuperHomePage extends Base {
     protected static WebDriver driver;
 
     //2º Locators
-    static By womanLink = By.xpath("//a[@href='/es/h-woman.html']");
+    static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
 
     //3º Constructor
     public SuperHomePage(WebDriver driver) {
