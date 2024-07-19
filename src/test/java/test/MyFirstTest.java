@@ -35,10 +35,16 @@ public class MyFirstTest  {
     @DisplayName("Test 1 : Selecciona país/idioma y encuentra el logo de BERSHKA")
     public void test_1_my_fist_test()  {
 
+        try{
         step.goTo();
         step.manageCookies();
         step.manageCountryAndLanguage();
         step.selectWomanProducts();
+        } catch (AssertionError | Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+            throw e;
+        }
 
     }
 }
