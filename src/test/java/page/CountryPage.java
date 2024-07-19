@@ -2,7 +2,9 @@ package page;
 
 import org.example.Base;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class CountryPage extends Base {
@@ -13,6 +15,13 @@ public class CountryPage extends Base {
     //2º Locators
     static By acceptCookiesLocator = By.id("onetrust-accept-btn-handler");
     static By comboboxSeleccionarPais = By.id("country-list-controls");
+    /* Otros localizadores para el problema del combobox
+     By locator2 = By.cssSelector("div[class='country-selector country-selection__cta']");
+       By locator3 = By.cssSelector("button[class='button is-select']");
+       By locator4 = By.cssSelector("span[class='icon-container icon-size-16']");
+       By locator5 = By.cssSelector("span[class='bskico-arrow-down-16']");
+     */
+    static By espanaDropDwn= By.xpath("//span[normalize-space(text())='España'][@class='caption-name']");
     static By selectCountryLocator = By.xpath("//span[text()='Germany']");
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
@@ -26,6 +35,7 @@ public class CountryPage extends Base {
 
    public CountryPage openContryCombobox()  {
        /** Localizar Elemento combobox "Seleccionar País" con id */
+       dynamicWait(espanaDropDwn);
        if (isDisplayed(comboboxSeleccionarPais)) {
            /** Click en el Combobox */
            click(comboboxSeleccionarPais);
@@ -37,13 +47,13 @@ public class CountryPage extends Base {
 
    public CountryPage selectCountry(){
        /** Localizar Elemento "País" con xpath de text()) */
-       if (isDisplayed(selectCountryLocator)) {
+       dynamicWait(selectCountryLocator);
            /** Elegir país*/
            click(selectCountryLocator);
            //@todo comprobar que el localizador del checkbox esta visible
 
            //@todo comprobar que esta presente el botón guardar o go .
-       }
+
        return this;
    }
 
@@ -59,24 +69,17 @@ public class CountryPage extends Base {
        return this;
    }
 
-   public CountryPage clickGo (){
+   public CountryPage clickGoGuardar (){
 
        if (isDisplayed(pressGOLocator)) {
            boolean gobuttonExists = false;
            boolean buttonGo = isDisplayed(acceptCookiesLocator);
-           Assert.assertTrue(buttonGo, "No se muestra el pop up de cookies");
+           Assert.assertTrue(buttonGo, "No se muestra el botón GO");
            System.out.println("Es accesible el botón GO!");
            click(pressGOLocator);
 
-       }
-
-       return this;
-   }
-
-   public CountryPage clickGuardar(){
-
-       if (isDisplayed(pressGuardarLocator)) {
-           System.out.println("Es accesible el botón GUARDAR para avanzar segunda prueba Elia");
+       } else  if (isDisplayed(pressGuardarLocator)) {
+           System.out.println("Es accesible el botón GUARDAR ");
            click(pressGuardarLocator);
        } else {
            Assert.fail(null);
@@ -84,5 +87,6 @@ public class CountryPage extends Base {
 
        return this;
    }
+
 
 }

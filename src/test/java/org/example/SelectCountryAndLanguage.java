@@ -22,6 +22,7 @@ public class SelectCountryAndLanguage extends Base {
     static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
     static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
     static By comboboxSeleccionarPaís = By.xpath("//div[@class='country-selector country-selection__cta']");
+    static By espanaDropDwn= By.xpath("//span[normalize-space(text())='España'][@class='caption-name']");
     static By selectCountryLocator = By.xpath("//span[text()='España']");
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
@@ -84,6 +85,7 @@ public class SelectCountryAndLanguage extends Base {
 
         //@todo comprobar el texto
         /** Localizar Elemento combobox "Seleccionar País" con id */
+        dynamicWait(espanaDropDwn);
         if (isDisplayed(comboboxSeleccionarPaís)) {
             /** Click en el Combobox */
             clickAndWait(comboboxSeleccionarPaís);
@@ -93,13 +95,13 @@ public class SelectCountryAndLanguage extends Base {
 
         //@todo intentar quitar el Thread.sleep de la linea 88 y poner una espera dinámica
         /** Localizar Elemento "País" con xpath de text()) */
-        if (isDisplayed(selectCountryLocator)) {
+        dynamicWait(selectCountryLocator);
             /** Elegir país*/
             clickAndWait(selectCountryLocator);
             //@todo comprobar que el localizador del checkbox esta visible
 
             //@todo comprobar que esta presente el botón guardar o go .
-        }
+
 
         /** Elegir idioma prueba */
         if (isDisplayed(selectLanguageLocator)) {
