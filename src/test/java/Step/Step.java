@@ -36,8 +36,7 @@ public class Step {
         country.openContryCombobox()
                 .selectCountry()
                 .selectLanguage()
-                .clickGo()
-                .clickGuardar();
+                .clickGoGuardar();
 
     }
 
