@@ -1,6 +1,7 @@
 package org.example;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,15 +21,15 @@ public class SelectCountryAndLanguage extends Base {
     static By acceptCookiesLocator = By.id("onetrust-accept-btn-handler");
     static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
     static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
-    static By comboboxSeleccionarPaís = By.id("country-list-controls");
-    static By selectCountryLocator = By.xpath("//span[text()='Germany']");
+    static By comboboxSeleccionarPaís = By.xpath("//div[@class='country-selector country-selection__cta']");
+    static By selectCountryLocator = By.xpath("//span[text()='España']");
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
     static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
     static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
-    static By womanLink = By.xpath("//a[@href='/es/h-woman.html']");
-    static By cartButton = By.id("aria-button-shopcart");
-    static By wishListButton = By.xpath("//a[@href='/es/wish-list.html']");
+    static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
+    static By cartButton = By.xpath("//button[@id='aria-button-shopcart']/span/span");
+    static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -85,8 +86,7 @@ public class SelectCountryAndLanguage extends Base {
         /** Localizar Elemento combobox "Seleccionar País" con id */
         if (isDisplayed(comboboxSeleccionarPaís)) {
             /** Click en el Combobox */
-            click(comboboxSeleccionarPaís);
-            Thread.sleep(3000);
+            clickAndWait(comboboxSeleccionarPaís);
         } else {
             Assert.fail("ERROR: No se muestra el combox de selección de país");
         }
@@ -95,7 +95,7 @@ public class SelectCountryAndLanguage extends Base {
         /** Localizar Elemento "País" con xpath de text()) */
         if (isDisplayed(selectCountryLocator)) {
             /** Elegir país*/
-            click(selectCountryLocator);
+            clickAndWait(selectCountryLocator);
             //@todo comprobar que el localizador del checkbox esta visible
 
             //@todo comprobar que esta presente el botón guardar o go .
@@ -115,8 +115,7 @@ public class SelectCountryAndLanguage extends Base {
             System.out.println("Es accesible el botón GO!");
             click(pressGOLocator);
 
-        }
-        if (isDisplayed(pressGuardarLocator)) {
+        } else if (isDisplayed(pressGuardarLocator)) {
             System.out.println("Es accesible el botón GUARDAR para avanzar segunda prueba Elia");
             click(pressGuardarLocator);
         } else {
