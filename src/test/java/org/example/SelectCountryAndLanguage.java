@@ -29,8 +29,10 @@ public class SelectCountryAndLanguage extends Base {
     static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
     static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
     static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
-    static By cartButton = By.xpath("//button[@id='aria-button-shopcart']/span/span");
+    static By cartButton = By.xpath("//span[@class='cart-icon-desktop__label']");
     static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
+    static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
+    static By wLEmpty = By.xpath("//div[@class='empty recommendation-empty-state wishlist-product-grid__empty recommendation-empty-state--carousel']");
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -137,10 +139,20 @@ public class SelectCountryAndLanguage extends Base {
         //@todo Categoría: Difícil-->comprobar que se activa el botón "jeans" Pista: en el localizador del botón, cuando se clica uno de los atributos también cambia :)
         //@SAUL todo volver a clicar en el símbolo de la cesta
         clickAndWait(cartButton);
+        Thread.sleep(5000);
         //@SAUL todo click en favoritos
         clickAndWait(wishListButton);
         //@todo verificar con assert que estoy en la página de favoritos  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
-
+        if(Base.isDisplayed(wLPageTitle)){
+            System.out.println("Estamos en Favoritos.");
+        }else{
+            Assert.fail("Error, no estamos en favoritos");
+        }
         //@todo verificar que no hay nada en favoritos
+        if(Base.isDisplayed(wLEmpty)){
+            System.out.println("Favoritos está vacío.");
+        }else{
+            Assert.fail("Favoritos no está vacío");
+        }
     }
 }
