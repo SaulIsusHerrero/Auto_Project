@@ -57,7 +57,7 @@ public class Base {
     }
 
     public static void dynamicWait(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (Exception e) {
