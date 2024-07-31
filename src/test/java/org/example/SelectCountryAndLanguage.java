@@ -34,6 +34,7 @@ public class SelectCountryAndLanguage extends Base {
     static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
     static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
     static By wLEmpty = By.xpath("//div[@class='empty recommendation-empty-state wishlist-product-grid__empty recommendation-empty-state--carousel']");
+    static By cartDescubrirButton = By.xpath("//a[@class='link-text button is-black']");
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -141,6 +142,11 @@ public class SelectCountryAndLanguage extends Base {
 
         //@todo (comprobar que no hay elementos, la cesta está vacia)
         //@todo click en descubrir -- te lleva a descubrir nuevos productos
+        if (isDisplayed(cartDescubrirButton)) {
+            System.out.println("Se muestra el botón Descubrir en cesta vacía");
+            clickAndWait(cartDescubrirButton);
+        } else { Assert.fail("No se muestra el botón Descubrir en cesta vacía");
+        }
         //@todo assert para comprobar que se abre la página "New"  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
         //@todo click en la opción "Jeans"
         //@todo Categoría: Difícil-->comprobar que se activa el botón "jeans" Pista: en el localizador del botón, cuando se clica uno de los atributos también cambia :)
