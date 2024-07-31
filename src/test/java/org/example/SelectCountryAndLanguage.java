@@ -152,13 +152,13 @@ public class SelectCountryAndLanguage extends Base {
         //@todo assert para comprobar que se abre la página "New"  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
         if (isDisplayed(titleCategoryNew)) {
             System.out.println("Se ha accedido correctamente a la página New");
-            click(titleCategoryNew);
+            clickAndWait(titleCategoryNew);
         } else { Assert.fail("No se ha accedido a la página New");
         }
         //@todo click en la opción "Jeans"
         if (isDisplayed(jeansCarruselParrillaNew)) {
             System.out.println("Se muestra la opción Jeans en el carrusel");
-            click(jeansCarruselParrillaNew);
+            clickAndWait(jeansCarruselParrillaNew);
         } else { Assert.fail("No se muestra la opción Jeans en el carrusel");
         }
         //@todo Categoría: Difícil-->comprobar que se activa el botón "jeans" Pista: en el localizador del botón, cuando se clica uno de los atributos también cambia :)
