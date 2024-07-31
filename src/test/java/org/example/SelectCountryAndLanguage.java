@@ -35,6 +35,8 @@ public class SelectCountryAndLanguage extends Base {
     static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
     static By wLEmpty = By.xpath("//div[@class='empty recommendation-empty-state wishlist-product-grid__empty recommendation-empty-state--carousel']");
     static By cartDescubrirButton = By.xpath("//a[@class='link-text button is-black']");
+    static By titleCategoryNew = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
+    static By jeansCarruselParrillaNew = By.xpath("//button[normalize-space()='Jeans']");
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -148,7 +150,17 @@ public class SelectCountryAndLanguage extends Base {
         } else { Assert.fail("No se muestra el botón Descubrir en cesta vacía");
         }
         //@todo assert para comprobar que se abre la página "New"  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
+        if (isDisplayed(titleCategoryNew)) {
+            System.out.println("Se ha accedido correctamente a la página New");
+            click(titleCategoryNew);
+        } else { Assert.fail("No se ha accedido a la página New");
+        }
         //@todo click en la opción "Jeans"
+        if (isDisplayed(jeansCarruselParrillaNew)) {
+            System.out.println("Se muestra la opción Jeans en el carrusel");
+            click(jeansCarruselParrillaNew);
+        } else { Assert.fail("No se muestra la opción Jeans en el carrusel");
+        }
         //@todo Categoría: Difícil-->comprobar que se activa el botón "jeans" Pista: en el localizador del botón, cuando se clica uno de los atributos también cambia :)
         //@SAUL todo volver a clicar en el símbolo de la cesta
 
