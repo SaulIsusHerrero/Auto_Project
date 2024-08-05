@@ -30,6 +30,14 @@ public class Test_1_Select_Country_Language {
     @DisplayName("Test 1 : Selecciona país/idioma y encuentra el logo de BERSHKA")
 
     public void test_1_LanguageAndGo() throws InterruptedException {
-        SelectCountryAndLanguage.selectCountryAndLanguage();
+
+        try{
+            SelectCountryAndLanguage.selectCountryAndLanguage();
+        } catch (AssertionError | Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+            throw e;
+        }
+
     }
 }
