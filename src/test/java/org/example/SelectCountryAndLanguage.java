@@ -140,6 +140,7 @@ public class SelectCountryAndLanguage extends Base {
 
 
         //@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
+        clickAndWait(cartButton);
         //@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
 
         //@todo (comprobar que no hay elementos, la cesta está vacia)
