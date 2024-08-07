@@ -35,6 +35,23 @@ public class SelectCountryAndLanguage extends Base {
     static By cartDescubrirButton = By.xpath("//a[@class='link-text button is-black']");
     static By titleCategoryNew = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
     static By jeansCarruselParrillaNew = By.xpath("//button[normalize-space()='Jeans']");
+    static By cartModalLocator = By.id("aria-modal-shopcart");
+    static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
+
+    //Jorge comprobar cesta 1
+    //(3)@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
+    public static boolean isCartOpen(){
+        WebElement cartModal = driver.findElement(cartModalLocator);
+        String ariaExpanded = cartModal.getAttribute("aria-expanded");
+        return "false".equals(ariaExpanded);
+    }
+    //Jorge 4
+    //@todo (comprobar que no hay elementos, la cesta está vacia)
+    // Metodo para comprobar si la cesta esta vacia
+    public static boolean isCartEmpty(){
+        return driver.findElements(emptyCartMessageLocator).size() > 0;
+    }
+
 
     //3º Constructor
     public SelectCountryAndLanguage(WebDriver driver) {
@@ -76,9 +93,9 @@ public class SelectCountryAndLanguage extends Base {
         botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
         botonRechazarOpcionales = driver.findElement(rejectOptionalCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
         botonConfiguracionCookies = driver.findElement(cookiesConfiguration).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas las cookies", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
-        Assert.assertEquals(botonRechazarOpcionales, "rechazar opcionales", "Error, el texto del botón de rechazar las cookies opcionales no es el correcto");
-        Assert.assertEquals(botonConfiguracionCookies, "configuración de cookies", "Error, el texto del botón de configuración de cookies no es el correcto");
+        Assert.assertEquals(botonAceptarCookiesTexto, "accept all cookies", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
+        Assert.assertEquals(botonRechazarOpcionales, "reject optional cookies", "Error, el texto del botón de rechazar las cookies opcionales no es el correcto");
+        Assert.assertEquals(botonConfiguracionCookies, "cookies settings", "Error, el texto del botón de configuración de cookies no es el correcto");
 
         //@todo buscar en internet como se comprueba si algo es clicable
 
@@ -113,18 +130,44 @@ public class SelectCountryAndLanguage extends Base {
         } else {
             System.out.println("Language was not found"); //@todo Assert
         }
+
+        //(1) @todo si no ha aparecido el Go ni el Guardar, Assert.fail
+        boolean isGoButtonVisible = isDisplayed(pressGOLocatorGeneral);
+        boolean isSaveButtonVisible = isDisplayed(pressGOLocatorGeneral);
+
+        if (isGoButtonVisible) {
+            clickAndWait(pressGOLocatorGeneral);
+        } else if (isSaveButtonVisible) {
+            clickAndWait(pressGOLocatorGeneral);
+        } else {
+            Assert.fail("Neither GO button nor Guardar button is visible");
+        }
+
+
+
         /**Click para acceder a la web ya seleccionado país e idioma*/
         clickAndWait(pressGOLocatorGeneral);
 
         clickAndWait(womanLink);
-        //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
 
 
-        //@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
+        //Jorge
+        //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
         clickAndWait(cartButton);
-        //@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
 
-        //@todo (comprobar que no hay elementos, la cesta está vacia)
+        //Jorge comprobar cesta 2
+        //(3)@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
+        // Aqui esperamos que el atributo "aria-expanded" del modal de la cesta sea falso
+        WebDriverWait waitCart = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.attributeToBe(cartModalLocator, "aria-expanded", "true"));
+        } catch (Exception e) {
+            System.out.println("La cesta NO abrio.");
+            //Assert para comprobar que se abre la pestaña de la cesta
+            Assert.assertTrue(isCartOpen(), "La pestaña de la cesta no se abrio correctamente");
+            System.out.println("La cesta SI se abrio.");
+        }
+
         //@todo click en descubrir -- te lleva a descubrir nuevos productos
         dynamicWait(cartDescubrirButton);
         if (isDisplayed(cartDescubrirButton)) {
@@ -146,7 +189,6 @@ public class SelectCountryAndLanguage extends Base {
         }
         //@todo Categoría: Difícil-->comprobar que se activa el botón "jeans" Pista: en el localizador del botón, cuando se clica uno de los atributos también cambia :)
         //@SAUL todo volver a clicar en el símbolo de la cesta
-
         clickAndWait(cartButton);
         Assert.assertTrue(driver.findElement(wishListButton).isDisplayed(),"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         System.out.println("He hecho click en cart button AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
