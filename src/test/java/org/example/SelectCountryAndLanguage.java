@@ -93,9 +93,9 @@ public class SelectCountryAndLanguage extends Base {
         botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
         botonRechazarOpcionales = driver.findElement(rejectOptionalCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
         botonConfiguracionCookies = driver.findElement(cookiesConfiguration).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarCookiesTexto, "accept all cookies", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
-        Assert.assertEquals(botonRechazarOpcionales, "reject optional cookies", "Error, el texto del botón de rechazar las cookies opcionales no es el correcto");
-        Assert.assertEquals(botonConfiguracionCookies, "cookies settings", "Error, el texto del botón de configuración de cookies no es el correcto");
+        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas las cookies", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
+        Assert.assertEquals(botonRechazarOpcionales, "rechazar opcionales", "Error, el texto del botón de rechazar las cookies opcionales no es el correcto");
+        Assert.assertEquals(botonConfiguracionCookies, "configuración de cookies", "Error, el texto del botón de configuración de cookies no es el correcto");
 
         //@todo buscar en internet como se comprueba si algo es clicable
 
