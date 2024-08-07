@@ -25,9 +25,7 @@ public class SelectCountryAndLanguage extends Base {
     static By espanaDropDwn= By.xpath("//span[normalize-space(text())='España'][@class='caption-name']");
     static By selectCountryLocator = By.xpath("//span[text()='España']");
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
-    static By pressGOLocator = By.xpath("//span[normalize-space()='GO!']");
     static By pressGOLocatorGeneral = By.xpath("//button[@data-qa-anchor='saveLocation']");
-    static By pressGuardarLocator = By.xpath("//span[normalize-space()='Guardar']");
     static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
     static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
     static By cartButton = By.xpath("//button[@id='aria-button-shopcart']");
@@ -118,23 +116,6 @@ public class SelectCountryAndLanguage extends Base {
         /**Click para acceder a la web ya seleccionado país e idioma*/
         clickAndWait(pressGOLocatorGeneral);
 
-//        if (isDisplayed(pressGOLocator)) {
-//            boolean gobuttonExists = false;
-//            boolean buttonGo = isDisplayed(acceptCookiesLocator);
-//            Assert.assertTrue(cookiesPopUp, "No se muestra el pop up de cookies");
-//            System.out.println("Es accesible el botón GO!");
-//            click(pressGOLocator);
-//            //Assert.assertTrue(driver.findElement(womanLink).isDisplayed(),"HEMOS CLICK EN EL BOTÓN GO!");
-//            System.out.println("HEMOS CLICK EN EL BOTÓN GO!");
-//
-//        } else if (isDisplayed(pressGuardarLocator)) {
-//            System.out.println("Es accesible el botón GUARDAR para avanzar segunda prueba Elia");
-//            click(pressGuardarLocator);
-//            //Assert.assertTrue(driver.findElement(womanLink).isDisplayed(),"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-//            System.out.println("HEMOS CLICK EN EL BOTÓN GUARDAR");
-//        } else {
-//            Assert.fail(null);
-//        }
         clickAndWait(womanLink);
         //@todo si no ha aparecido el Go ni el Guardar, Assert.fail
 
@@ -145,6 +126,7 @@ public class SelectCountryAndLanguage extends Base {
 
         //@todo (comprobar que no hay elementos, la cesta está vacia)
         //@todo click en descubrir -- te lleva a descubrir nuevos productos
+        dynamicWait(cartDescubrirButton);
         if (isDisplayed(cartDescubrirButton)) {
             System.out.println("Se muestra el botón Descubrir en cesta vacía");
             clickAndWait(cartDescubrirButton);
