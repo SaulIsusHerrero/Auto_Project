@@ -27,7 +27,10 @@ public class SelectCountryAndLanguage extends Base {
     static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     static By pressGOLocatorGeneral = By.xpath("//button[@data-qa-anchor='saveLocation']");
     static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
-    static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
+    //static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
+
+    static By womanLink = By.xpath("//a[contains(@href, 'woman')]");
+
     static By cartButton = By.xpath("//button[@id='aria-button-shopcart']");
     static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
     static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
@@ -148,11 +151,13 @@ public class SelectCountryAndLanguage extends Base {
         /**Click para acceder a la web ya seleccionado país e idioma*/
         clickAndWait(pressGOLocatorGeneral);
 
+        //Thread.sleep(5000);
         clickAndWait(womanLink);
 
 
         //Jorge
         //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
+        Thread.sleep(1000);
         clickAndWait(cartButton);
 
         //Jorge comprobar cesta 2

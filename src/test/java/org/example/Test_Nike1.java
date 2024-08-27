@@ -6,17 +6,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-public class Test_1_Select_Country_Language {
+
+public class Test_Nike1 {
     //1º Variables
     private WebDriver driver;
-    SelectCountryAndLanguage selectCountryAndLanguage;
+    TestsNike testsNike;
     //2º Methods
     @BeforeEach
     public void setUp() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addArguments("--incognito");
         driver = new ChromeDriver(chromeOptions);
-        selectCountryAndLanguage = new SelectCountryAndLanguage(driver);
+        testsNike = new TestsNike(driver);
     }
 
     @AfterEach
@@ -26,12 +28,14 @@ public class Test_1_Select_Country_Language {
     }
 
     @org.junit.jupiter.api.Test
-    @DisplayName("Test 1 : Selecciona país/idioma y encuentra el logo de BERSHKA")
+    @DisplayName("Test 1 : Abrimos web, comprobamos y aceptamos Cookies")
 
-    public void test_1_LanguageAndGo() throws InterruptedException {
+    public void test_1_Cookies() throws InterruptedException {
 
         try{
-            SelectCountryAndLanguage.selectCountryAndLanguage();
+            TestsNike.cookiesPageElements();
+            TestsNike.acceptCookies();
+            TestsNike.carritoPageDefaultElements();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);
@@ -40,3 +44,4 @@ public class Test_1_Select_Country_Language {
 
     }
 }
+

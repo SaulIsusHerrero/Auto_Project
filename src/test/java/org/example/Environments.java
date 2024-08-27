@@ -15,7 +15,8 @@ public class Environments extends Base{
 
         //Paso 1.Ir a la pagina de Berska
         driver.manage().window().maximize();
-        driver.get("https://www.bershka.com/");
+        //driver.get("https://www.bershka.com/");
+        driver.get("https://www.nike.com/");
         System.out.println("Cargando url: https://www.bershka.com/");
 
         return this;
