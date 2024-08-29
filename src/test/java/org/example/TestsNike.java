@@ -1,54 +1,22 @@
 package org.example;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.Locale;
 
-// Vamos a cambiar la web de los test para ver si evitamos los problemas de esperas, para ello vamos a probar con
-// la web de Nike. Primero adaptaremos los test que ya tenemos en Bershka a Nike, para ello:
-// - Tendremos que volver a localizar elementos y añadir nuevos locators
-// - Seguiremos los TO-DO en comentarios para ir cambiando los tests
-// - Una vez adaptado, adaptaremos la organización de todos los tests para que tengan estructura PageObject
-
-/*"Test 1 : Selecciona país/idioma"*/
 public class TestsNike extends Base {
-    //@SAUL: todo clean code el código. toda clase de page object tiene que tener declaración de variables, declaración de selectores, constructor,metodos
+
     //1º Variables
     protected static WebDriver driver;
 
     //2º Locators
-    //TODO DONE: localizar el botón "Confirmar preferencias", lo podemos llamar p.e. "confirmChoiceCookiesLocator"
     static By acceptPreferences = By.xpath("//button[@data-testid='confirm-choice-button']");
-    static By acceptCookiesLocator = By.xpath("//button[@data-testid='dialog-accept-button']");
-
-
-    //static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
-    //static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
-    //static By comboboxSeleccionarPaís = By.xpath("//div[@class='country-selector country-selection__cta']");
-    //static By espanaDropDwn= By.xpath("//span[normalize-space(text())='España'][@class='caption-name']");
-   // static By selectCountryLocator = By.xpath("//span[text()='España']");
-    //static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
-    //static By pressGOLocatorGeneral = By.xpath("//button[@data-qa-anchor='saveLocation']");
-    //static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
-    //static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
-
-    static By womanLink = By.xpath("//a[contains(@href, 'woman')]");
-
-    //TODO: Este locator lo he puesto yo para facilitar las cosas
     static By cartButton = By.xpath("//a[@class='nds-btn nds-button--icon-only nav-bag-icon css-17i884h ex41m6f0 btn-primary-light']");
-    static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
-    static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
-    static By wLEmpty = By.xpath("//div[@class='empty recommendation-empty-state wishlist-product-grid__empty recommendation-empty-state--carousel']");
-    static By cartDescubrirButton = By.xpath("//a[@class='link-text button is-black']");
-    static By titleCategoryNew = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
-    static By jeansCarruselParrillaNew = By.xpath("//button[normalize-space()='Jeans']");
     static By cartModalLocator = By.id("aria-modal-shopcart");
     static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
 
@@ -76,7 +44,6 @@ public class TestsNike extends Base {
     }
 
     //4º Methods
-    //TODO: Como Nike no tiene selector de país en la primera página, vamos solamente a Aceptar Cookies
     public static void cookiesPageElements() throws InterruptedException {
         //Paso 1.Ir a la web
         System.out.println("Se ha ejecutado el primer test");
@@ -87,25 +54,13 @@ public class TestsNike extends Base {
         //Paso 2. Comporbar los elementos por defecto
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        //TODO: este try-catch lo podemos meter en un Assert > Intentar, o dejarlo así
-        //TODO: (Como hemos cambiado antes el locator con el mismo nombre, no hace falta
-        // cambiar los tests que tengan "acceptCookiesLocator")
-
-        boolean cookiesPopUp = isDisplayed(acceptCookiesLocator);
+        boolean cookiesPopUp = isDisplayed(acceptPreferences);
         Assert.assertTrue(cookiesPopUp, "No es mostrado el pop up de cookies");
 
 
-        //TODO: Solo tenemos dos botones: Aceptar Cookies y Confirmar Preferencias, para el primero habrá que
-        // cambiar el texto, para el segundo añadir el nuevo locator, borrar el resto de botones
-
-        String botonAceptarCookiesTexto = "";
-        botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
-
-        // TODO: Añadir un assert para botonConfirmarPreferencias, podéis copiar la estructura del botonAceptarCookiesTexto
         String botonAceptarPreferencias = "";
-        botonAceptarPreferencias = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarPreferencias, "confirmar preferencias", "Error, el texto del botón de confirmar preferencias no es el correcto");
+        botonAceptarPreferencias = driver.findElement(acceptPreferences).getText().trim().toLowerCase(Locale.ROOT);
+        Assert.assertEquals(botonAceptarPreferencias, "confirmChoiceCookiesLocator", "Error, el texto del botón de confirmChoiceCookiesLocator no es el correcto");
     }
 
     // TODO: He separado los tests en Asserts, que luego añadimos a la lista de ejecuones en el @test,
@@ -113,10 +68,9 @@ public class TestsNike extends Base {
         public static void acceptCookies() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); // TODO: No me gusta esta linea
         /** Aceptar pop-up de cookies */
-        click(acceptCookiesLocator);
+        click(acceptPreferences);
         Thread.sleep(1000);
-        Assert.assertFalse(isDisplayed(acceptCookiesLocator), "No se ha cerrado el pop up de cookies");
-        // TODO: He añadido un Assert para asegurarme que se cierra el popup
+        Assert.assertFalse(isDisplayed(acceptPreferences), "No se ha cerrado el pop up de cookies");
         }
 
         //TODO: A partir de aquí cambiamos de página: PISTA para cuando tengamos que ordenar PO.
