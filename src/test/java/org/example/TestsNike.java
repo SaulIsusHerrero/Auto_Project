@@ -1,6 +1,7 @@
 package org.example;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,8 +24,10 @@ public class TestsNike extends Base {
     protected static WebDriver driver;
 
     //2º Locators
+    //TODO DONE: localizar el botón "Confirmar preferencias", lo podemos llamar p.e. "confirmChoiceCookiesLocator"
+    static By acceptPreferences = By.xpath("//button[@data-testid='confirm-choice-button']");
     static By acceptCookiesLocator = By.xpath("//button[@data-testid='dialog-accept-button']");
-    //TODO: localizar el botón "Confirmar preferencias", lo podemos llamar p.e. "confirmChoiceCookiesLocator"
+
 
     //static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
     //static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
@@ -87,11 +90,7 @@ public class TestsNike extends Base {
         //TODO: este try-catch lo podemos meter en un Assert > Intentar, o dejarlo así
         //TODO: (Como hemos cambiado antes el locator con el mismo nombre, no hace falta
         // cambiar los tests que tengan "acceptCookiesLocator")
-        try {
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(acceptCookiesLocator));
-        } catch (Exception e) {
-            System.out.println("El elemento no es visible dentro del tiempo esperado");
-        }
+
         boolean cookiesPopUp = isDisplayed(acceptCookiesLocator);
         Assert.assertTrue(cookiesPopUp, "No es mostrado el pop up de cookies");
 
@@ -104,6 +103,9 @@ public class TestsNike extends Base {
         Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
 
         // TODO: Añadir un assert para botonConfirmarPreferencias, podéis copiar la estructura del botonAceptarCookiesTexto
+        String botonAceptarPreferencias = "";
+        botonAceptarPreferencias = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
+        Assert.assertEquals(botonAceptarPreferencias, "confirmar preferencias", "Error, el texto del botón de confirmar preferencias no es el correcto");
     }
 
     // TODO: He separado los tests en Asserts, que luego añadimos a la lista de ejecuones en el @test,

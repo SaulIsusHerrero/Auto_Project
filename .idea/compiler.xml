@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="practica_final" />
-        <module name="Auto_Project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11" />
