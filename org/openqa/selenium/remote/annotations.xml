@@ -1,0 +1,17 @@
+<root>
+    <item name='org.openqa.selenium.remote.CommandExecutor org.openqa.selenium.remote.Response execute(org.openqa.selenium.remote.Command)'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="pure" val="true"/>
+        </annotation>
+    </item>
+    <item name='org.openqa.selenium.remote.ErrorCodec org.openqa.selenium.WebDriverException decode(java.util.Map&lt;java.lang.String,java.lang.Object&gt;)'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="pure" val="true"/>
+        </annotation>
+    </item>
+    <item name='org.openqa.selenium.remote.HttpCommandExecutor org.openqa.selenium.remote.Response execute(org.openqa.selenium.remote.Command)'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="pure" val="true"/>
+        </annotation>
+    </item>
+</root>
