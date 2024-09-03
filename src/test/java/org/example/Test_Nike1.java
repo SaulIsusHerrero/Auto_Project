@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import static org.example.SelectCountryAndLanguage.isCartOpen;
-
 public class Test_Nike1 {
     //1º Variables
     private WebDriver driver;
@@ -22,17 +20,14 @@ public class Test_Nike1 {
         driver = new ChromeDriver(chromeOptions);
         testsNike = new TestsNike(driver);
     }
-
     @AfterEach
     public void closeDriver(){
         System.out.println("Cerramos el driver");
         driver.quit();
     }
-
     @org.junit.jupiter.api.Test
     @DisplayName("Test 1 : Abrimos web, comprobamos y aceptamos Cookies")
-
-    public void runTest() throws InterruptedException {
+    public void test_1_Cookies() throws InterruptedException {
 
         try{
             TestsNike.cookiesPageElements();
@@ -46,5 +41,3 @@ public class Test_Nike1 {
 
     }
 }
-
-
