@@ -7,10 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class Test_Nike1 {
+public class Test_CasaDelLibro1 {
     //1º Variables
     private WebDriver driver;
-    TestsNike testsNike;
+    TestsCasaDelLibro testsCasaDelLibro;
     //2º Methods
     @BeforeEach
     public void setUp() {
@@ -18,7 +18,7 @@ public class Test_Nike1 {
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--incognito");
         driver = new ChromeDriver(chromeOptions);
-        testsNike = new TestsNike(driver);
+        testsCasaDelLibro = new TestsCasaDelLibro(driver);
     }
 
     @AfterEach
@@ -33,9 +33,10 @@ public class Test_Nike1 {
     public void test_1_Cookies() throws InterruptedException {
 
         try{
-            TestsNike.cookiesPageElements();
-            TestsNike.acceptCookies();
-            TestsNike.carritoPageDefaultElements();
+            TestsCasaDelLibro.cookiesPageElements();
+            TestsCasaDelLibro.acceptCookies();
+            TestsCasaDelLibro.carritoPageDefaultElements();
+            TestsCasaDelLibro.cerrarCarrito();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);

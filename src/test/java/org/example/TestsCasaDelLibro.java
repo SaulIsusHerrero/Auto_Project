@@ -1,10 +1,8 @@
 package org.example;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -12,21 +10,23 @@ import java.time.Duration;
 import java.util.Locale;
 
 // Vamos a cambiar la web de los test para ver si evitamos los problemas de esperas, para ello vamos a probar con
-// la web de Nike. Primero adaptaremos los test que ya tenemos en Bershka a Nike, para ello:
+// la web de CasaDelLibro. Primero adaptaremos los test que ya tenemos en Bershka a CasaDelLibro, para ello:
 // - Tendremos que volver a localizar elementos y añadir nuevos locators
 // - Seguiremos los TO-DO en comentarios para ir cambiando los tests
 // - Una vez adaptado, adaptaremos la organización de todos los tests para que tengan estructura PageObject
 
 /*"Test 1 : Selecciona país/idioma"*/
-public class TestsNike extends Base {
+public class TestsCasaDelLibro extends Base {
     //@SAUL: todo clean code el código. toda clase de page object tiene que tener declaración de variables, declaración de selectores, constructor,metodos
     //1º Variables
     protected static WebDriver driver;
 
     //2º Locators
     //TODO DONE: localizar el botón "Confirmar preferencias", lo podemos llamar p.e. "confirmChoiceCookiesLocator"
-    static By acceptPreferences = By.xpath("//button[@data-testid='confirm-choice-button']");
-    static By acceptCookiesLocator = By.xpath("//button[@data-testid='dialog-accept-button']");
+    static By popupCookies = By.xpath("//div[@id='onetrust-group-container']");
+    static By configurarCookies = By.xpath("//button[@id='onetrust-pc-btn-handler']");
+    static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
+    static By acceptCookiesLocator = By.xpath("//button[@id='onetrust-accept-btn-handler']");
 
 
     //static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
@@ -40,8 +40,6 @@ public class TestsNike extends Base {
     //static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
 
     static By womanLink = By.xpath("//a[contains(@href, 'woman')]");
-
-    //TODO: Este locator lo he puesto yo para facilitar las cosas
     static By cartButton = By.xpath("//a[@class='nds-btn nds-button--icon-only nav-bag-icon css-17i884h ex41m6f0 btn-primary-light']");
     static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
     static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
@@ -70,72 +68,65 @@ public class TestsNike extends Base {
 
 
     //3º Constructor
-    public TestsNike(WebDriver driver) {
+    public TestsCasaDelLibro(WebDriver driver) {
         super(driver);
         this.driver = driver;
     }
 
     //4º Methods
-    //TODO: Como Nike no tiene selector de país en la primera página, vamos solamente a Aceptar Cookies
+    //TODO: Como CasaDelLibro no tiene selector de país en la primera página, vamos solamente a Aceptar Cookies
     public static void cookiesPageElements() throws InterruptedException {
         //Paso 1.Ir a la web
         System.out.println("Se ha ejecutado el primer test");
         driver.manage().window().maximize();
         //driver.get("https://www.bershka.com/");
-        driver.get("https://www.nike.com/");
-
-        //Paso 2. Comporbar los elementos por defecto
+        driver.get("https://www.casadellibro.com/");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        //TODO: este try-catch lo podemos meter en un Assert > Intentar, o dejarlo así
-        //TODO: (Como hemos cambiado antes el locator con el mismo nombre, no hace falta
-        // cambiar los tests que tengan "acceptCookiesLocator")
+        //Paso 2. Comprobar los elementos por defecto
+        String textoConfigurarCookies = "";
+        textoConfigurarCookies = driver.findElement(configurarCookies).getText().trim().toLowerCase(Locale.ROOT);
+        String textoRechazarCookies = "";
+        textoRechazarCookies = driver.findElement(rechazarCookies).getText().trim().toLowerCase(Locale.ROOT);
+        String textoAceptarCookiesTexto = "";
+        textoAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
 
-        boolean cookiesPopUp = isDisplayed(acceptCookiesLocator);
-        Assert.assertTrue(cookiesPopUp, "No es mostrado el pop up de cookies");
-
-
-        //TODO: Solo tenemos dos botones: Aceptar Cookies y Confirmar Preferencias, para el primero habrá que
-        // cambiar el texto, para el segundo añadir el nuevo locator, borrar el resto de botones
-
-        String botonAceptarCookiesTexto = "";
-        botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarCookiesTexto, "aceptar todas", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
-
-        // TODO: Añadir un assert para botonConfirmarPreferencias, podéis copiar la estructura del botonAceptarCookiesTexto
-        String botonAceptarPreferencias = "";
-        botonAceptarPreferencias = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
-        Assert.assertEquals(botonAceptarPreferencias, "confirmar preferencias", "Error, el texto del botón de confirmar preferencias no es el correcto");
+        Assert.assertTrue(isDisplayed(popupCookies), "No es mostrado el pop up de cookies");
+        Assert.assertEquals(textoConfigurarCookies, "configurar cookies", "Error, el texto del botón de configurar cookies no es el correcto");
+        Assert.assertEquals(textoAceptarCookiesTexto, "aceptar", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
+        Assert.assertEquals(textoRechazarCookies, "rechazar", "Error, el texto del botón de rechazar no es el correcto");
     }
 
+    
     // TODO: He separado los tests en Asserts, que luego añadimos a la lista de ejecuones en el @test,
     //  así es más fácil saber dónde falla, y elegimos el orden de las ejeciones
         public static void acceptCookies() throws InterruptedException {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); // TODO: No me gusta esta linea
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         /** Aceptar pop-up de cookies */
         click(acceptCookiesLocator);
         Thread.sleep(1000);
-        Assert.assertFalse(isDisplayed(acceptCookiesLocator), "No se ha cerrado el pop up de cookies");
-        // TODO: He añadido un Assert para asegurarme que se cierra el popup
+        Assert.assertFalse(isDisplayed(popupCookies), "No se ha cerrado el pop up de cookies");
         }
 
-        //TODO: A partir de aquí cambiamos de página: PISTA para cuando tengamos que ordenar PO.
-public static void carritoPageDefaultElements() throws InterruptedException {
-        //TODO: Adaptamos este test al carrito de Nike
+ public static void carritoPageDefaultElements() throws InterruptedException {
+        //TODO: Adaptamos este test al carrito de CasaDelLibro
         //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
         Thread.sleep(1000);
         clickAndWait(cartButton);
 
-        //TODO En esta web el carrito NO es una pestaña sino una página: nos simplifica las cosas
-
-    //TODO Aquí comprobaremos que los elementos de la Cesta se ven correctamente y en el estado Vacio, por ejemplo:
-    // - La url incluye "Cart"
-    // - La cesta está vacía = un texto nos indica "No tienes productos en tu cesta."
-    // - Hay un H1 con el texto "Cesta"
-    // - Hay un "subtotal" y un "total", estos tienen un valor nulo (summary-subtotal y summary-total no son un número)
-    // - Hay 2 botones: Pasar por caja y Paypal, ambos están "Disabled"
+// TODO: Deberes 5 de Septiembre:
+//  1. Crear un assert para comprobar que sale el modal de carrito
+//  2. Comprobar que hay un título "Tu cesta"
+//  3. Comprobar que hay un botón "x" para cerrar el modal
+//  4. Asegurarnos que aparece el texto "Tu cesta está vacía"
 
 }
+
+    public static void cerrarCarrito() throws InterruptedException {
+// TODO: Deberes 5 de Septiembre 2:
+//  1. Crear assert/s para comprobar que se cierra el modal de carrito al pulsar x
+    }
+
 
 //TODO: Lo ideal sería crear otro test donde se añada cualquier producto y este cambie todos los elementos del
 // carrito: Aparece listado el producto, hay subtotal y total, los botones están "Enabled".
@@ -157,7 +148,7 @@ public static void carritoPageDefaultElements() throws InterruptedException {
     }
 
 
-    //TODO Proximamente: En Nike el botón descubrir podemos cambiarlo por "Novedades y Destacados", abre https://www.nike.com/es/w/nuevo-3n82y
+    //TODO Proximamente: En CasaDelLibro el botón descubrir podemos cambiarlo por "Novedades y Destacados", abre https://www.CasaDelLibro.com/es/w/nuevo-3n82y
     //        //@todo click en descubrir -- te lleva a descubrir nuevos productos
 //        dynamicWait(cartDescubrirButton);
 //        if (isDisplayed(cartDescubrirButton)) {
