@@ -128,6 +128,33 @@ public class TestsCasaDelLibro extends Base {
     }
 
 
+    //TODO 9 de Septiembre 1: "Elementos por defecto página de Ofertas"
+    // 1. Crear un nuevo test (public static void XXX () throws InterruptedException {...}) y añadirlo
+    // tanto aquí como Test_CasaDelLibro1 dentro del Try para poder ejecutarlo
+    // 2. Llegar a la página de ofertas
+    // 3. Comprobar la existencia de 4 elementos que demuestren la carga de la página de Ofertas con asserts,
+    // uno de los elementos tiene que ser el breadcrumb
+
+    //TODO 9 de Septiembre 2: "Elementos por defecto página de Producto"
+    // 1. Crear un nuevo test (public static void XXX () throws InterruptedException {...}) y añadirlo
+    // tanto aquí como Test_CasaDelLibro1 dentro del Try para poder ejecutarlo
+    // 2. Llegar a la página de ofertas y luego llegar a la página de un libro
+    // 3. Comprobar la existencia de 4 elementos que demuestren la carga de la página de Producto con asserts.
+    // uno de los elementos tiene que ser el breadcrumb
+
+    //TODO EXTRA (Opcional) 9 de Septiembre: "Añadir un producto al carrito"
+    // 1. Crear un nuevo test
+    // 2. Llegar a la página de un producto y hacer clic en el botón de "Añadir a la cesta"
+    // 3. Comprobar que sale el modal del carrito (si tarda, meted un sleep) y que éste está lleno a diferencia
+    // del test de los "Elementos por defecto carrito"
+    //TODO EXTRA PLUS: Crear un test para cerrar el carrito lleno y asegurarse que en el icono aparece un
+    // número diferente a cero.
+    //TODO MATRÍCULA: Crear un método con los pasos a seguir para "Cerrar carrito" y sustituir todos los pasos
+    // de los 2 tests que repiten estos pasos por una sola linea.
+
+
+
+
 //TODO: Lo ideal sería crear otro test donde se añada cualquier producto y este cambie todos los elementos del
 // carrito: Aparece listado el producto, hay subtotal y total, los botones están "Enabled".
 // Para esto tendríamos que crear también la página "Producto" y hacer tests con ello. Por ahora, y para la sesión
