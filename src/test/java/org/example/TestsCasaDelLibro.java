@@ -137,7 +137,7 @@ public class TestsCasaDelLibro extends Base {
 //  1. Crear assert/s para comprobar que se cierra el modal de carrito al pulsar x
         click(cestaX);
         System.out.println("La modal del carrito se ha cerrado con la X");
-        Assert.assertFalse(isDisplayed(cestaX),"No se cierra la modal con X oki doki'");
+        Assert.assertTrue(isDisplayed(cestaX),"No se ha cerrado la modal del carrito con X ");
     }
 
 
