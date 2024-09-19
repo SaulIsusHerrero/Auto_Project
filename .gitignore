@@ -16,3 +16,6 @@ target/test-classes/test/MyFirstTest.class
 target/test-classes/test/MyFirstTest_bis.class
 /target
 *.class
+target/test-classes/org/example/Test_1_Select_Country_Language.class
+*.class
+target/test-classes/org/example/Test_1_Select_Country_Language.class

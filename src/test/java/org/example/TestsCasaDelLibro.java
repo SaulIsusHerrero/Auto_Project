@@ -20,7 +20,6 @@ public class TestsCasaDelLibro extends Base {
     //@SAUL: todo clean code el código. toda clase de page object tiene que tener declaración de variables, declaración de selectores, constructor,metodos
     //1º Variables
     protected static WebDriver driver;
-
     //2º Locators
     //TODO DONE: localizar el botón "Confirmar preferencias", lo podemos llamar p.e. "confirmChoiceCookiesLocator"
     static By popupCookies = By.xpath("//div[@id='onetrust-group-container']");
@@ -28,12 +27,12 @@ public class TestsCasaDelLibro extends Base {
     static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
     static By acceptCookiesLocator = By.xpath("//button[@id='onetrust-accept-btn-handler']");
 
-
+    //HELLO WORLD!
     //static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
     //static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
     //static By comboboxSeleccionarPaís = By.xpath("//div[@class='country-selector country-selection__cta']");
     //static By espanaDropDwn= By.xpath("//span[normalize-space(text())='España'][@class='caption-name']");
-   // static By selectCountryLocator = By.xpath("//span[text()='España']");
+    // static By selectCountryLocator = By.xpath("//span[text()='España']");
     //static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
     //static By pressGOLocatorGeneral = By.xpath("//button[@data-qa-anchor='saveLocation']");
     //static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
@@ -56,7 +55,7 @@ public class TestsCasaDelLibro extends Base {
 
     //Jorge comprobar cesta 1
     //(3)@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
-    public static boolean isCartOpen(){
+    public static boolean isCartOpen() {
         WebElement cartModal = driver.findElement(cartModalLocator);
         String ariaExpanded = cartModal.getAttribute("aria-expanded");
         return "false".equals(ariaExpanded);
@@ -66,10 +65,9 @@ public class TestsCasaDelLibro extends Base {
     //Jorge 4
     //@todo (comprobar que no hay elementos, la cesta está vacia)
     // Metodo para comprobar si la cesta esta vacia
-    public static boolean isCartEmpty(){
+    public static boolean isCartEmpty() {
         return driver.findElements(emptyCartMessageLocator).size() > 0;
     }
-
 
     //3º Constructor
     public TestsCasaDelLibro(WebDriver driver) {
@@ -108,7 +106,7 @@ public class TestsCasaDelLibro extends Base {
         public static void acceptCookies() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         /** Aceptar pop-up de cookies */
-        click(acceptCookiesLocator);
+        click(confirmChoiceCookiesLocator);
         Thread.sleep(1000);
         Assert.assertFalse(isDisplayed(popupCookies), "No se ha cerrado el pop up de cookies");
         }
@@ -174,11 +172,11 @@ public class TestsCasaDelLibro extends Base {
 // del 29 de agosto vamos a ceñirnos en tener el test de arriba antes de la sesión
 
     public static void favoritesPageDefaultElements() throws InterruptedException {
-// TODO: A diferencia de Bershka, para ver los favoritos hay que estar registrado, si ahcemos clic en el
-//  Botón Favoritos (Corazón) llevará a una web de Login -> Dejarlo para el final, seguiremos trabajando
-//  en la página Carrito, Por ahora, y para la sesión del 29 de agosto vamos a ceñirnos en tener el test de arriba
-//  antes de la sesión
-        //        //@SAUL todo verificar que no hay nada en favoritos
+        // TODO: A diferencia de Bershka, para ver los favoritos hay que estar registrado, si ahcemos clic en el
+        //  Botón Favoritos (Corazón) llevará a una web de Login -> Dejarlo para el final, seguiremos trabajando
+        //  en la página Carrito, Por ahora, y para la sesión del 29 de agosto vamos a ceñirnos en tener el test de arriba
+        //  antes de la sesión
+        // @SAUL todo verificar que no hay nada en favoritos
 //        if(Base.isDisplayed(wLEmpty)){
 //            System.out.println("Favoritos está vacío.");
 //        }else{
@@ -196,19 +194,17 @@ public class TestsCasaDelLibro extends Base {
 //            clickAndWait(cartDescubrirButton);
 //        } else { Assert.fail("No se muestra el botón Descubrir en cesta vacía");
 //
-    //        //@todo assert para comprobar que se abre la página "New"  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
+        //        //@todo assert para comprobar que se abre la página "New"  (NOta: intentad buscar un localizador que esté presente solo cuando se abre está página)
 //        if (isDisplayed(titleCategoryNew)) {
 //            System.out.println("Se ha accedido correctamente a la página New");
 //            clickAndWait(titleCategoryNew);
 //        } else { Assert.fail("No se ha accedido a la página New");
 //        }
-
-
-//TODO Proximamente: Vamos al menú, revisamos  elementos por defecto y clic en una categoría Hombre>Zapatillas
+// TODO Proximamente: Vamos al menú, revisamos  elementos por defecto y clic en una categoría Hombre>Zapatillas
 //TODO: Próximamente: Vamos al menú, dejamos el cursor y vemos un sub-menu: elementos por defecto y clic
 //TODO Proximamente: Vamos a un producto, revisamos los elementos por defecto y lo añadimos a la cesta
 
-    //TODO: Dejo estos tests de Bershka comentados por ahora.
+        //TODO: Dejo estos tests de Bershka comentados por ahora.
 //        //@todo click en la opción "Jeans"
 //        if (isDisplayed(jeansCarruselParrillaNew)) {
 //            System.out.println("Se muestra la opción Jeans en el carrusel");
@@ -228,6 +224,5 @@ public class TestsCasaDelLibro extends Base {
 //        }else{
 //            Assert.fail("Error, no estamos en favoritos");
 //        }
-
-
+    }
 }
