@@ -7,7 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 
 
 public class MyFirstTest  {
@@ -23,6 +25,9 @@ public class MyFirstTest  {
         chromeOptions.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(chromeOptions);
         step = new Step(driver);
+        driver.manage().window().maximize();
+        driver.get("https://www.casadellibro.com/");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @AfterEach
@@ -33,13 +38,12 @@ public class MyFirstTest  {
 
     @org.junit.jupiter.api.Test
     @DisplayName("Test 1 : Selecciona país/idioma y encuentra el logo de BERSHKA")
-    public void test_1_my_fist_test()  {
+    public void test_1_my_fist_test() throws InterruptedException {
 
         try{
         step.goTo();
         step.manageCookies();
-        step.manageCountryAndLanguage();
-        step.selectWomanProducts();
+        step.manageCarrito();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);

@@ -36,6 +36,7 @@ public class Test_CasaDelLibro1 {
         try{
             TestsCasaDelLibro.cookiesPageElements();
             TestsCasaDelLibro.acceptCookies();
+
             TestsCasaDelLibro.carritoPageDefaultElements();
             TestsCasaDelLibro.cerrarCarrito();
         } catch (AssertionError | Exception e) {
