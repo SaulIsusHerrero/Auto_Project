@@ -40,7 +40,7 @@ public class TestsCasaDelLibro extends Base {
     //static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
 
     static By womanLink = By.xpath("//a[contains(@href, 'woman')]");
-    static By cartButton = By.xpath("//a[@class='nds-btn nds-button--icon-only nav-bag-icon css-17i884h ex41m6f0 btn-primary-light']");
+    static By cartButton = By.xpath("//button[@class='btn icon ghost brand-text cesta-btn']");
     static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
     static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
     static By wLEmpty = By.xpath("//div[@class='empty recommendation-empty-state wishlist-product-grid__empty recommendation-empty-state--carousel']");
@@ -49,6 +49,10 @@ public class TestsCasaDelLibro extends Base {
     static By jeansCarruselParrillaNew = By.xpath("//button[normalize-space()='Jeans']");
     static By cartModalLocator = By.id("aria-modal-shopcart");
     static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
+    static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
+    static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
+    static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
+
 
     //Jorge comprobar cesta 1
     //(3)@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
@@ -85,6 +89,7 @@ public class TestsCasaDelLibro extends Base {
 
         //Paso 2. Comprobar los elementos por defecto
         String textoConfigurarCookies = "";
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         textoConfigurarCookies = driver.findElement(configurarCookies).getText().trim().toLowerCase(Locale.ROOT);
         String textoRechazarCookies = "";
         textoRechazarCookies = driver.findElement(rechazarCookies).getText().trim().toLowerCase(Locale.ROOT);
@@ -113,18 +118,26 @@ public class TestsCasaDelLibro extends Base {
         //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
         Thread.sleep(1000);
         clickAndWait(cartButton);
+     Thread.sleep(3000);
 
 // TODO: Deberes 5 de Septiembre:
 //  1. Crear un assert para comprobar que sale el modal de carrito
+     Assert.assertFalse(isDisplayed(cartModalLocator),"No se muestra el modal del carrito");
 //  2. Comprobar que hay un título "Tu cesta"
+     Assert.assertTrue(isDisplayed(cestaTitulo), "Titulo 'Tu cesta' se muestra");
 //  3. Comprobar que hay un botón "x" para cerrar el modal
+     Assert.assertTrue(isDisplayed(cestaX), "Si hay un boton X de Cesta");
 //  4. Asegurarnos que aparece el texto "Tu cesta está vacía"
+     Assert.assertTrue(isDisplayed(cestaVacia),"Aparece el texto 'Tu cesta esta vacia'");
 
 }
 
     public static void cerrarCarrito() throws InterruptedException {
 // TODO: Deberes 5 de Septiembre 2:
 //  1. Crear assert/s para comprobar que se cierra el modal de carrito al pulsar x
+        click(cestaX);
+        System.out.println("La modal del carrito se ha cerrado con la X");
+        Assert.assertTrue(isDisplayed(cestaX),"No se ha cerrado la modal del carrito con X ");
     }
 
 

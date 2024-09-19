@@ -17,6 +17,7 @@ public class Test_CasaDelLibro1 {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--incognito");
+        chromeOptions.addArguments("--disable-search-engine-choice-screen");
         driver = new ChromeDriver(chromeOptions);
         testsCasaDelLibro = new TestsCasaDelLibro(driver);
     }
