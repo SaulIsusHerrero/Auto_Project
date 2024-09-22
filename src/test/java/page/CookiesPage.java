@@ -1,10 +1,8 @@
 package page;
 
 import org.example.Base;
-import org.example.Constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -17,10 +15,10 @@ public class CookiesPage extends Base {
     protected static WebDriver driver;
 
     //2º Locators
-    static By acceptCookiesLocator = By.id("onetrust-accept-btn-handler");
-    static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
-    static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
-    static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
+    static By popupCookies = By.xpath("//div[@id='onetrust-group-container']");
+    static By configurarCookies = By.xpath("//button[@id='onetrust-pc-btn-handler']");
+    static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
+    static By acceptCookiesLocator = By.xpath("//button[@id='onetrust-accept-btn-handler']");
 
     //3º Constructor
     public CookiesPage(WebDriver driver) {
@@ -28,77 +26,38 @@ public class CookiesPage extends Base {
         CookiesPage.driver = driver;
     }
 
-    public CookiesPage verifyCookiesExist() {
-
+    public CookiesPage cookiesPageElements() throws InterruptedException {
+        System.out.println("Se ha ejecutado el primer test");
+        driver.manage().window().maximize();
+        driver.get("https://www.casadellibro.com/");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(acceptCookiesLocator));
-        } catch (Exception e) {
-            System.out.println("El elemento no es visible dentro del tiempo esperado");
-        }
-        boolean cookiesPopUp = isDisplayed(acceptCookiesLocator);
-        Assert.assertTrue(cookiesPopUp, "No es mostrado el pop up de cookies");
 
+        String textoConfigurarCookies = "";
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        textoConfigurarCookies = driver.findElement(configurarCookies).getText().trim().toLowerCase(Locale.ROOT);
+        String textoRechazarCookies = "";
+        textoRechazarCookies = driver.findElement(rechazarCookies).getText().trim().toLowerCase(Locale.ROOT);
+        String textoAceptarCookiesTexto = "";
+        textoAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim().toLowerCase(Locale.ROOT);
+
+        Assert.assertTrue(isDisplayed(popupCookies), "No es mostrado el pop up de cookies");
+        Assert.assertEquals(textoConfigurarCookies, "configurar cookies", "Error, el texto del botón de configurar cookies no es el correcto");
+        Assert.assertEquals(textoAceptarCookiesTexto, "aceptar", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
+        Assert.assertEquals(textoRechazarCookies, "rechazar", "Error, el texto del botón de rechazar no es el correcto");
         return this;
     }
 
-    public CookiesPage verifyLinkPrivacyExist() {
-
-        if (Base.isDisplayed(policyLink)) {
-            System.out.println("se muestra el link de la política de privacidad.");
-        } else {
-            Assert.fail("Error, no se muestra el link de la política de privacidad.");
-        }
-
+    public CookiesPage acceptCookies() throws InterruptedException {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        /** Aceptar pop-up de cookies */
+        click(configurarCookies);
+        Thread.sleep(1000);
+        Assert.assertFalse(isDisplayed(popupCookies), "No se ha cerrado el pop up de cookies");
         return this;
     }
 
-    public CookiesPage verifyBotonAceptarCookiesExist() {
 
-        String botonAceptarCookiesTexto = "";
-        botonAceptarCookiesTexto = driver.findElement(acceptCookiesLocator).getText().trim();
-        if (botonAceptarCookiesTexto.equalsIgnoreCase(Constants.ACCEPT_COOKIES_MESAGE_ESP)) {
-            System.out.println("Se ha comprobado el texto del botón aceptar cookies.");
-        } else if (botonAceptarCookiesTexto.equalsIgnoreCase(Constants.ACCEPT_COOKIES_MESAGE_ENG)) {
-            System.out.println("Se ha comprobado el texto del botón aceptar cookies.");
-        } else {
-            Assert.fail("Error, el texto del botón de aceptar todas las cookies no es el correcto");
-        }
 
-        return this;
-    }
 
-    public CookiesPage verifyBotonRechazarOpcionalesExist() {
-
-        String botonRechazarOpcionales = "";
-        botonRechazarOpcionales = driver.findElement(rejectOptionalCookiesLocator).getText().trim();
-        if (botonRechazarOpcionales.equalsIgnoreCase(Constants.REJECT_COOKIES_MESAGE_ENG)
-                || botonRechazarOpcionales.equalsIgnoreCase(Constants.REJECT_COOKIES_MESAGE_ESP)) {
-            System.out.println("Se ha comprobado el texto del botón rechazar cookies.");
-        } else {
-            Assert.fail("Error, el texto del botón de rechazar las cookies opcionales no es el correcto");
-        }
-
-        return this;
-    }
-
-    public CookiesPage verifyBotonConfiguracionCookiesExist() {
-
-        String botonConfiguracionCookies = "";
-        botonConfiguracionCookies = driver.findElement(cookiesConfiguration).getText().trim().toLowerCase(Locale.ROOT);
-        if (botonConfiguracionCookies.equalsIgnoreCase(Constants.CONFIGURATION_COOKIES_MESAGE_ESP)
-                || botonConfiguracionCookies.equalsIgnoreCase(Constants.CONFIGURATION_COOKIES_MESAGE_ENG)) {
-            System.out.println("Se ha comprobado el texto del botón configuración cookies.");
-        } else {
-            Assert.fail("Error, el texto del botón de configuración de cookies no es el correcto");
-        }
-
-        return this;
-    }
-
-    public CookiesPage acceptCookies() {
-        click(acceptCookiesLocator);
-        return this;
-    }
 
 }

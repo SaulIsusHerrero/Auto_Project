@@ -3,8 +3,8 @@ package Step;
 import org.example.Environments;
 import org.openqa.selenium.WebDriver;
 import page.CookiesPage;
-import page.CountryPage;
-import page.SuperHomePage;
+import page.HomePage;
+import page.CarritoPage;
 
 public class Step {
 
@@ -18,29 +18,16 @@ public class Step {
        new Environments(driver).goToPro();
     }
 
-    public void manageCookies(){
+    public void manageCookies() throws InterruptedException {
         CookiesPage cookies = new CookiesPage(driver);
-
-        cookies.verifyCookiesExist()
-                .verifyLinkPrivacyExist()
-                .verifyBotonAceptarCookiesExist()
-                .verifyBotonRechazarOpcionalesExist()
-                .verifyBotonConfiguracionCookiesExist()
-                .acceptCookies();
-
+        cookies.cookiesPageElements().acceptCookies();
     }
 
-    public void manageCountryAndLanguage(){
-        CountryPage country = new CountryPage(driver);
-
-        country.openContryCombobox()
-                .selectCountry()
-                .selectLanguage()
-                .clickGoGuardar();
-
+    public void manageCarrito() throws InterruptedException {
+        CarritoPage carrito = new CarritoPage(driver);
+        carrito.carritoPageDefaultElements().cerrarCarrito();
     }
 
-    public void selectWomanProducts(){
-        new SuperHomePage(driver).clickWomanButton();
-    }
+
+
 }
