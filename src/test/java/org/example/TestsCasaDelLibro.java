@@ -106,15 +106,15 @@ public class TestsCasaDelLibro extends Base {
         public static void acceptCookies() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         /** Aceptar pop-up de cookies */
-        click(configurarCookies);
-        Thread.sleep(1000);
-        Assert.assertFalse(isDisplayed(popupCookies), "No se ha cerrado el pop up de cookies");
+        click(acceptCookiesLocator);
+        Thread.sleep(5000);
+        Assert.assertFalse(isDisplayed(popupCookies),"No se muestra el pop up de cookies");
         }
 
  public static void carritoPageDefaultElements() throws InterruptedException {
         //TODO: Adaptamos este test al carrito de CasaDelLibro
         //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         clickAndWait(cartButton);
      Thread.sleep(3000);
 
