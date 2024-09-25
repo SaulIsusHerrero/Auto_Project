@@ -25,6 +25,7 @@ public class TestsCasaDelLibro extends Base {
     static By popupCookies = By.xpath("//div[@id='onetrust-group-container']");
     static By configurarCookies = By.xpath("//button[@id='onetrust-pc-btn-handler']");
     static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
+    static By addToCart = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
     static By acceptCookiesLocator = By.xpath("//button[@id='onetrust-accept-btn-handler']");
     static By womanLink = By.xpath("//a[contains(@href, 'woman')]");
     static By cartButton = By.xpath("//button[@class='btn icon ghost brand-text cesta-btn']");
@@ -35,6 +36,7 @@ public class TestsCasaDelLibro extends Base {
     static By titleCategoryNew = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
     static By jeansCarruselParrillaNew = By.xpath("//button[normalize-space()='Jeans']");
     static By cartModalLocator = By.id("aria-modal-shopcart");
+    static By cartNumber = By.xpath("//span[@class='svelte-wwa3op']");
     static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
     static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
@@ -185,9 +187,19 @@ public class TestsCasaDelLibro extends Base {
     // 2. Llegar a la página de un producto y hacer clic en el botón de "Añadir a la cesta"
     // 3. Comprobar que sale el modal del carrito (si tarda, meted un sleep) y que éste está lleno a diferencia
     // del test de los "Elementos por defecto carrito"
-
+    public static void addToCart () throws InterruptedException {
+        clickAndWait(addToCart);
+        Thread.sleep(2000);
+        System.out.println("El producto se ha añadido al carrito");
+    }
+    public static boolean isCartNotEmpty() {
+        return driver.findElements(emptyCartMessageLocator).size() > 0;
+    }
 
     //TODO EXTRA PLUS: Crear un test para cerrar el carrito lleno y asegurarse que en el icono aparece un
     // número diferente a cero.
 
+    public static boolean isCartNotZeroFromHome() {
+       return driver.findElements(cartNumber).size() > 0;
+    }
 }
