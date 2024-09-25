@@ -25,19 +25,8 @@ public class TestsCasaDelLibro extends Base {
     static By popupCookies = By.xpath("//div[@id='onetrust-group-container']");
     static By configurarCookies = By.xpath("//button[@id='onetrust-pc-btn-handler']");
     static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
+    static By addToCart = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
     static By acceptCookiesLocator = By.xpath("//button[@id='onetrust-accept-btn-handler']");
-
-    //HELLO WORLD!
-    //static By rejectOptionalCookiesLocator = By.id("onetrust-reject-all-handler");
-    //static By cookiesConfiguration = By.id("onetrust-pc-btn-handler");
-    //static By comboboxSeleccionarPaís = By.xpath("//div[@class='country-selector country-selection__cta']");
-    //static By espanaDropDwn= By.xpath("//span[normalize-space(text())='España'][@class='caption-name']");
-    // static By selectCountryLocator = By.xpath("//span[text()='España']");
-    //static By selectLanguageLocator = By.xpath("//span[normalize-space()='en']");
-    //static By pressGOLocatorGeneral = By.xpath("//button[@data-qa-anchor='saveLocation']");
-    //static By policyLink = By.xpath("//a[@class='ot-cookie-policy-link']");
-    //static By womanLink = By.xpath("//div[@class='gender-selector super-home-gender-selector__menu']/div/div[1]/a");
-
     static By womanLink = By.xpath("//a[contains(@href, 'woman')]");
     static By cartButton = By.xpath("//button[@class='btn icon ghost brand-text cesta-btn']");
     static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
@@ -47,17 +36,18 @@ public class TestsCasaDelLibro extends Base {
     static By titleCategoryNew = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
     static By jeansCarruselParrillaNew = By.xpath("//button[normalize-space()='Jeans']");
     static By cartModalLocator = By.id("aria-modal-shopcart");
+    static By cartNumber = By.xpath("//span[@class='svelte-wwa3op']");
     static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
     static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
     static By catalogoLocator = By.xpath("//a[normalize-space()='Ficción']");
-    static By bredScrum = By.xpath("//nav[@aria-label='breadcrumbs']");
-    static By Subtitle = By.xpath("(//div[@class='seo-text html-text px-4 pt-4 bg svelte-23d234'])[1]");
-    static By Title = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
+    static By breadScrum = By.xpath("//nav[@aria-label='breadcrumbs']");
+    static By title = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
+    static By tituloProducto = By.xpath("//h1[@class='f-serif balance-title f-fluid-2 f-w-4 mb-2 svelte-xvuu2q']");
     static By imagen1erLibro = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
-
-
+    static By autorProducto = By.xpath("(//div[@class='f-serif s-7-text f-fluid-1'])");
+    static By precioProducto = By.xpath("(//div[@class='info-price d-grid svelte-1c4mio6'])");
 
 
     //Jorge comprobar cesta 1
@@ -161,9 +151,9 @@ public class TestsCasaDelLibro extends Base {
     }
 
     public static void checkFiccion () throws InterruptedException {
-        Assert.assertTrue(isDisplayed(catalogoLocator),"No se clico en categoria ficcion'");
-        Assert.assertTrue(isDisplayed(bredScrum),"No aparece el scrumbread'");
-        Assert.assertTrue(isDisplayed(Title),"No se mostro el titulo'");
+        Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
+        Assert.assertTrue(isDisplayed(breadScrum),"No aparece el breadcrumb'");
+        Assert.assertTrue(isDisplayed(title),"No se muestra el título'");
         //Assert para la visibilidad del primero libro - su imágen
         Assert.assertTrue(isDisplayed(imagen1erLibro), "No se muestra la imágen del primer libro");
     }
@@ -175,14 +165,41 @@ public class TestsCasaDelLibro extends Base {
     // 3. Comprobar la existencia de 4 elementos que demuestren la carga de la página de Producto con asserts.
     // uno de los elementos tiene que ser el breadcrumb
 
+    public static void productoPage() throws InterruptedException{
+        Thread.sleep(5000);
+        clickAndWait(imagen1erLibro);
+        Thread.sleep(5000);
+    }
+
+    public static void checkProductoPage () throws InterruptedException {
+        //Assert se muestra el breadcrumb.
+        Assert.assertTrue(isDisplayed(breadScrum),"No aparece el breadcrumb'");
+        //Assert se muestra el título del producto.
+        Assert.assertTrue(isDisplayed(tituloProducto), "No se muestra el título del producto");
+        //Assert se muestra el/la autor/a.
+        Assert.assertTrue(isDisplayed(autorProducto), "No se muestra el/la autor/a del producto");
+        //Assert se muestra el precio del producto.
+        Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
+    }
+
     //TODO 19 de Septiembre 3: "Añadir un producto al carrito"
     // 1. Crear un nuevo test
     // 2. Llegar a la página de un producto y hacer clic en el botón de "Añadir a la cesta"
     // 3. Comprobar que sale el modal del carrito (si tarda, meted un sleep) y que éste está lleno a diferencia
     // del test de los "Elementos por defecto carrito"
-
+    public static void addToCart () throws InterruptedException {
+        clickAndWait(addToCart);
+        Thread.sleep(2000);
+        System.out.println("El producto se ha añadido al carrito");
+    }
+    public static boolean isCartNotEmpty() {
+        return driver.findElements(emptyCartMessageLocator).size() > 0;
+    }
 
     //TODO EXTRA PLUS: Crear un test para cerrar el carrito lleno y asegurarse que en el icono aparece un
     // número diferente a cero.
 
+    public static boolean isCartNotZeroFromHome() {
+       return driver.findElements(cartNumber).size() > 0;
+    }
 }

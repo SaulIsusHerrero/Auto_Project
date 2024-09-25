@@ -27,9 +27,4 @@ public class Step {
         CarritoPage carrito = new CarritoPage(driver);
         carrito.carritoPageDefaultElements().cerrarCarrito();
     }
-
-    /*public void manageCatalogo() throws InterruptedException {
-        CatalogoPage catalogo = new CatalogoPage(driver);
-        catalogo.catalogoPageDefaultElements().cerrarCatalogo();
-    }*/
 }
