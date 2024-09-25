@@ -36,9 +36,25 @@ public class Test_CasaDelLibro1 {
         try{
             TestsCasaDelLibro.cookiesPageElements();
             TestsCasaDelLibro.acceptCookies();
-
             TestsCasaDelLibro.carritoPageDefaultElements();
             TestsCasaDelLibro.cerrarCarrito();
+            TestsCasaDelLibro.catalogoPage();
+            TestsCasaDelLibro.checkFiccion();
+        } catch (AssertionError | Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+            throw e;
+        }
+
+    }
+
+    public void test_2_Ficcion() throws InterruptedException {
+
+        try{
+            TestsCasaDelLibro.cookiesPageElements();
+            TestsCasaDelLibro.acceptCookies();
+            TestsCasaDelLibro.catalogoPage();
+            TestsCasaDelLibro.checkFiccion();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);

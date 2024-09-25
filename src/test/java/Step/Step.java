@@ -2,8 +2,8 @@ package Step;
 
 import org.example.Environments;
 import org.openqa.selenium.WebDriver;
+import page.CatalogoPage;
 import page.CookiesPage;
-import page.HomePage;
 import page.CarritoPage;
 
 public class Step {
@@ -28,6 +28,8 @@ public class Step {
         carrito.carritoPageDefaultElements().cerrarCarrito();
     }
 
-
-
+    /*public void manageCatalogo() throws InterruptedException {
+        CatalogoPage catalogo = new CatalogoPage(driver);
+        catalogo.catalogoPageDefaultElements().cerrarCatalogo();
+    }*/
 }
