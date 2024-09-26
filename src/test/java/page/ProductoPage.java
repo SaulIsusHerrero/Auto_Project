@@ -7,9 +7,14 @@ public class ProductoPage extends Base {
 
     //1º Declare variables
     protected static WebDriver driver;
+
+    // Locators
+
     public ProductoPage(WebDriver driver) {
         super(driver);
 
     }
+
+    // Tests
 
 }

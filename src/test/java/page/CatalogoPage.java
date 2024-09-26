@@ -7,9 +7,16 @@ public class CatalogoPage extends Base {
 
     //1º Declare variables
     protected static WebDriver driver;
+
+    // Locators
+
+    // Constructor
     public CatalogoPage(WebDriver driver) {
         super(driver);
 
     }
+
+
+    // Tests terminados en asserts
 
 }
