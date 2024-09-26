@@ -3,6 +3,10 @@ import org.example.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+
+import static page.CatalogoPage.breadCrumbs;
+import static page.CatalogoPage.imagen1erLibro;
+
 public class ProductoPage extends Base {
 
     //1º Declare variables
@@ -22,13 +26,10 @@ public class ProductoPage extends Base {
     // Tests
     public static void checkProductoPage () throws InterruptedException {
         clickAndWait(imagen1erLibro);
-        //Assert se muestra el breadcrumb.
-        Assert.assertTrue(isDisplayed(breadScrum),"No aparece el breadcrumb'");
-        //Assert se muestra el título del producto.
+        dynamicWait(tituloProducto);
+        Assert.assertTrue(isDisplayed(breadCrumbs),"No aparece el breadcrumb'");
         Assert.assertTrue(isDisplayed(tituloProducto), "No se muestra el título del producto");
-        //Assert se muestra el/la autor/a.
         Assert.assertTrue(isDisplayed(autorProducto), "No se muestra el/la autor/a del producto");
-        //Assert se muestra el precio del producto.
         Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
     }
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import page.CatalogoPage;
 import page.CookiesPage;
 import page.CarritoPage;
+import page.ProductoPage;
 
 public class Step {
 
@@ -32,4 +33,10 @@ public class Step {
         CatalogoPage catalogo = new CatalogoPage(driver);
         catalogo.checkFiccion();
     }
+    public void manageProducto() throws InterruptedException {
+        ProductoPage producto = new ProductoPage(driver);
+        producto.checkProductoPage();
+    }
+
+
 }
