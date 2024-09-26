@@ -128,42 +128,20 @@ public class TestsCasaDelLibro extends Base {
 }
 
     public static void cerrarCarrito() throws InterruptedException {
-// TODO: Deberes 5 de Septiembre 2:
-//  1. Crear assert/s para comprobar que se cierra el modal de carrito al pulsar x
         click(cestaX);
         Thread.sleep(2000);
         System.out.println("La modal del carrito se ha cerrado con la X");
         //Assert.assertTrue(isDisplayed(cestaX),"No se ha cerrado la modal del carrito con X ");
     }
 
-    //TODO 19 de Septiembre 1: "Elementos por defecto página de Ficción" --> Añadir Página CATALOGO
-    // 1. Crear una nueva página con un nuevo test (public static void XXX () throws InterruptedException {...}) y añadirlo
-    // tanto aquí como en la página, como en STEP. Si creamos una página nueva habrá que añadirla a MyFirstTest (carpeta test)
-    // 2. Llegar a la página de Ficción
-    // 3. Comprobar la existencia de 4 elementos que demuestren la carga de la página con asserts,
-    // uno de los elementos tiene que ser el breadcrumb
-
-    /*public static void catalogoPage() throws InterruptedException{
-        Thread.sleep(5000);
-        clickAndWait(catalogoLocator);
-        Thread.sleep(5000);
-    }*/
-
     public static void checkFiccion () throws InterruptedException {
+        Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
         Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
         Assert.assertTrue(isDisplayed(breadScrum),"No aparece el breadcrumb'");
         Assert.assertTrue(isDisplayed(title),"No se muestra el título'");
         //Assert para la visibilidad del primero libro - su imágen
         Assert.assertTrue(isDisplayed(imagen1erLibro), "No se muestra la imágen del primer libro");
     }
-
-    //TODO 19 de Septiembre 2: "Elementos por defecto página de Producto" --> Añadir Página PRODUCTO
-    // 1. Crear un nuevo test (public static void XXX () throws InterruptedException {...}) y añadirlo
-    // tanto aquí como Test_CasaDelLibro1 dentro del Try para poder ejecutarlo
-    // 2. Llegar a la página de FICCIÓN y luego llegar a la página de un libro
-    // 3. Comprobar la existencia de 4 elementos que demuestren la carga de la página de Producto con asserts.
-    // uno de los elementos tiene que ser el breadcrumb
-
 
     public static void checkProductoPage () throws InterruptedException {
         clickAndWait(imagen1erLibro);
@@ -177,22 +155,27 @@ public class TestsCasaDelLibro extends Base {
         Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
     }
 
-    //TODO 19 de Septiembre 3: "Añadir un producto al carrito"
-    // 1. Crear un nuevo test
-    // 2. Llegar a la página de un producto y hacer clic en el botón de "Añadir a la cesta"
-    // 3. Comprobar que sale el modal del carrito (si tarda, meted un sleep) y que éste está lleno a diferencia
-    // del test de los "Elementos por defecto carrito"
+    //TODO 26/9 CREAR 1 TEST CON ASSERTS SOBRE QUE EL PRODUCTO SE HA AÑADIDO AL CARRITO:
+    // METER ADDTOCART EN EL TEST
+    // METER ASSERTS SOBRE ELEMENTOS DEL CARRITO LLENO (NO OLVIDAR PRECIO NI BOTÓN DE PAGAR)
+    // AÑADIR A LA PÁGINA CORRESPONDIENTE
+    // LUEGO ASEGURARSE QUE APARECE EN LOS STEPS.
+
     public static void addToCart () throws InterruptedException {
         clickAndWait(addToCart);
         Thread.sleep(2000);
         System.out.println("El producto se ha añadido al carrito");
     }
+
+
+    //TODO Eliminar esta parte y utilizar la que tenemos arriba, previamente hay que copiarla en la página
+    // correspondiente antes de los tests y después de los Locators
     public static boolean isCartNotEmpty() {
         return driver.findElements(emptyCartMessageLocator).size() > 0;
     }
 
-    //TODO EXTRA PLUS: Crear un test para cerrar el carrito lleno y asegurarse que en el icono aparece un
-    // número diferente a cero.
+    //TODO 26/9: CONVERTIR ESTO EN UN TEST Y AÑADIRLO A SU PAGE CORRESPONDIENTE
+    // LUEGO ASEGURARSE QUE APARECE EN LOS STEPS.
 
     public static boolean isCartNotZeroFromHome() {
        return driver.findElements(cartNumber).size() > 0;
