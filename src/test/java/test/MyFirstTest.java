@@ -44,6 +44,7 @@ public class MyFirstTest  {
         step.goTo();
         step.manageCookies();
         step.manageCarrito();
+        step.manageCatalogo();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);

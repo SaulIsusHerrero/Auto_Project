@@ -11,8 +11,8 @@ public class HomePage extends Base {
     protected static WebDriver driver;
 
     //2º Locators
-
     static By cartButton = By.xpath("//button[@class='btn icon ghost brand-text cesta-btn']");
+    static By cartNumber = By.xpath("//span[@class='svelte-wwa3op']");
 
     //3º Constructor
     public HomePage(WebDriver driver) {

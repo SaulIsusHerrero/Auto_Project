@@ -13,10 +13,10 @@ public class CarritoPage extends Base {
 
     //2º Locators
     static By cartModalLocator = By.id("aria-modal-shopcart");
-    static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
     static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
+
 
     //3º Constructor
     public CarritoPage(WebDriver driver) {
@@ -26,8 +26,6 @@ public class CarritoPage extends Base {
 
 
     public CarritoPage carritoPageDefaultElements() throws InterruptedException {
-        //TODO: Adaptamos este test al carrito de CasaDelLibro
-        //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
         Thread.sleep(1000);
         clickAndWait(cartButton);
         Thread.sleep(3000);
@@ -39,8 +37,6 @@ public class CarritoPage extends Base {
     }
 
     public CarritoPage cerrarCarrito() throws InterruptedException {
-// TODO: Deberes 5 de Septiembre 2:
-//  1. Crear assert/s para comprobar que se cierra el modal de carrito al pulsar x
         click(cestaX);
         Assert.assertTrue(isDisplayed(cestaX),"No se ha cerrado la modal del carrito con X ");
         return this;

@@ -25,27 +25,26 @@ public class TestsCasaDelLibro extends Base {
     static By popupCookies = By.xpath("//div[@id='onetrust-group-container']");
     static By configurarCookies = By.xpath("//button[@id='onetrust-pc-btn-handler']");
     static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
-    static By addToCart = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
     static By acceptCookiesLocator = By.xpath("//button[@id='onetrust-accept-btn-handler']");
-    static By womanLink = By.xpath("//a[contains(@href, 'woman')]");
-    static By cartButton = By.xpath("//button[@class='btn icon ghost brand-text cesta-btn']");
-    static By wishListButton = By.xpath("//span[@class='wishlist-button__text']");
-    static By wLPageTitle = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
-    static By wLEmpty = By.xpath("//div[@class='empty recommendation-empty-state wishlist-product-grid__empty recommendation-empty-state--carousel']");
-    static By cartDescubrirButton = By.xpath("//a[@class='link-text button is-black']");
-    static By titleCategoryNew = By.xpath("//h1[@class='top-bar-title-desktop bds-typography-heading-s']");
-    static By jeansCarruselParrillaNew = By.xpath("//button[normalize-space()='Jeans']");
+
+
     static By cartModalLocator = By.id("aria-modal-shopcart");
-    static By cartNumber = By.xpath("//span[@class='svelte-wwa3op']");
     static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
+    static By cartButton = By.xpath("//button[@class='btn icon ghost brand-text cesta-btn']");
+    static By cartNumber = By.xpath("//span[@class='svelte-wwa3op']");
+
+
     static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
+
     static By catalogoLocator = By.xpath("//a[normalize-space()='Ficción']");
     static By breadScrum = By.xpath("//nav[@aria-label='breadcrumbs']");
     static By title = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
-    static By tituloProducto = By.xpath("//h1[@class='f-serif balance-title f-fluid-2 f-w-4 mb-2 svelte-xvuu2q']");
     static By imagen1erLibro = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
+
+    static By addToCart = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
+    static By tituloProducto = By.xpath("//h1[@class='f-serif balance-title f-fluid-2 f-w-4 mb-2 svelte-xvuu2q']");
     static By autorProducto = By.xpath("(//div[@class='f-serif s-7-text f-fluid-1'])");
     static By precioProducto = By.xpath("(//div[@class='info-price d-grid svelte-1c4mio6'])");
 
@@ -144,11 +143,11 @@ public class TestsCasaDelLibro extends Base {
     // 3. Comprobar la existencia de 4 elementos que demuestren la carga de la página con asserts,
     // uno de los elementos tiene que ser el breadcrumb
 
-    public static void catalogoPage() throws InterruptedException{
+    /*public static void catalogoPage() throws InterruptedException{
         Thread.sleep(5000);
         clickAndWait(catalogoLocator);
         Thread.sleep(5000);
-    }
+    }*/
 
     public static void checkFiccion () throws InterruptedException {
         Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
@@ -165,13 +164,9 @@ public class TestsCasaDelLibro extends Base {
     // 3. Comprobar la existencia de 4 elementos que demuestren la carga de la página de Producto con asserts.
     // uno de los elementos tiene que ser el breadcrumb
 
-    public static void productoPage() throws InterruptedException{
-        Thread.sleep(5000);
-        clickAndWait(imagen1erLibro);
-        Thread.sleep(5000);
-    }
 
     public static void checkProductoPage () throws InterruptedException {
+        clickAndWait(imagen1erLibro);
         //Assert se muestra el breadcrumb.
         Assert.assertTrue(isDisplayed(breadScrum),"No aparece el breadcrumb'");
         //Assert se muestra el título del producto.
