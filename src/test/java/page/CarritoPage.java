@@ -17,7 +17,6 @@ public class CarritoPage extends Base {
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
 
-
     //3º Constructor
     public CarritoPage(WebDriver driver) {
         super(driver);
@@ -41,8 +40,4 @@ public class CarritoPage extends Base {
         Assert.assertTrue(isDisplayed(cestaX),"No se ha cerrado la modal del carrito con X ");
         return this;
     }
-
-
-
-
 }
