@@ -2,10 +2,7 @@ package Step;
 
 import org.example.Environments;
 import org.openqa.selenium.WebDriver;
-import page.CatalogoPage;
-import page.CookiesPage;
-import page.CarritoPage;
-import page.ProductoPage;
+import page.*;
 
 public class Step {
 
@@ -36,7 +33,10 @@ public class Step {
     public void manageProducto() throws InterruptedException {
         ProductoPage producto = new ProductoPage(driver);
         producto.checkProductoPage();
+        producto.addCarrito();
     }
-
-
+    public void manageHome() throws InterruptedException{
+        HomePage home = new HomePage(driver);
+        home.isCartNotEmptyHome();
+    }
 }

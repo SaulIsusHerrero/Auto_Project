@@ -38,10 +38,11 @@ public class Test_CasaDelLibro1 {
             TestsCasaDelLibro.acceptCookies();
             TestsCasaDelLibro.carritoPageDefaultElements();
             TestsCasaDelLibro.cerrarCarrito();
-            TestsCasaDelLibro.catalogoPage();
+            //TestsCasaDelLibro.catalogoPage();
             TestsCasaDelLibro.checkFiccion();
-            TestsCasaDelLibro.productoPage();
+            //TestsCasaDelLibro.productoPage();
             TestsCasaDelLibro.checkProductoPage();
+            TestsCasaDelLibro.addCarrito();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);
@@ -55,7 +56,7 @@ public class Test_CasaDelLibro1 {
         try{
             TestsCasaDelLibro.cookiesPageElements();
             TestsCasaDelLibro.acceptCookies();
-            TestsCasaDelLibro.catalogoPage();
+            //TestsCasaDelLibro.catalogoPage();
             TestsCasaDelLibro.checkFiccion();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
@@ -70,9 +71,9 @@ public class Test_CasaDelLibro1 {
         try{
             TestsCasaDelLibro.cookiesPageElements();
             TestsCasaDelLibro.acceptCookies();
-            TestsCasaDelLibro.catalogoPage();
+            //TestsCasaDelLibro.catalogoPage();
             TestsCasaDelLibro.checkFiccion();
-            TestsCasaDelLibro.productoPage();
+            //TestsCasaDelLibro.productoPage();
             TestsCasaDelLibro.checkProductoPage();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
@@ -82,18 +83,18 @@ public class Test_CasaDelLibro1 {
 
     }
 
-    public void test_4_AddToCArt() throws InterruptedException {
+    public void test_4_IsCartEmpty() throws InterruptedException {
 
         try{
             TestsCasaDelLibro.cookiesPageElements();
             TestsCasaDelLibro.acceptCookies();
-            TestsCasaDelLibro.catalogoPage();
+            //TestsCasaDelLibro.catalogoPage();
             TestsCasaDelLibro.checkFiccion();
-            TestsCasaDelLibro.productoPage();
+            //TestsCasaDelLibro.productoPage();
             TestsCasaDelLibro.checkProductoPage();
-            TestsCasaDelLibro.addToCart();
+            TestsCasaDelLibro.addCarrito();
             TestsCasaDelLibro.isCartOpen();
-            TestsCasaDelLibro.isCartNotEmpty();
+            TestsCasaDelLibro.isCartEmpty();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);
@@ -107,20 +108,20 @@ public class Test_CasaDelLibro1 {
         try{
             TestsCasaDelLibro.cookiesPageElements();
             TestsCasaDelLibro.acceptCookies();
-            TestsCasaDelLibro.catalogoPage();
+            //TestsCasaDelLibro.catalogoPage();
             TestsCasaDelLibro.checkFiccion();
-            TestsCasaDelLibro.productoPage();
+            //TestsCasaDelLibro.productoPage();
             TestsCasaDelLibro.checkProductoPage();
-            TestsCasaDelLibro.addToCart();
+            TestsCasaDelLibro.addCarrito();
             TestsCasaDelLibro.isCartOpen();
             TestsCasaDelLibro.cerrarCarrito();
-            TestsCasaDelLibro.isCartNotZeroFromHome();
+            TestsCasaDelLibro.addCarrito();
+            TestsCasaDelLibro.isCartNotEmptyHome();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);
             throw e;
         }
-
     }
 }
 

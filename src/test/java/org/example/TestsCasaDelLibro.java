@@ -26,28 +26,24 @@ public class TestsCasaDelLibro extends Base {
     static By configurarCookies = By.xpath("//button[@id='onetrust-pc-btn-handler']");
     static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
     static By acceptCookiesLocator = By.xpath("//button[@id='onetrust-accept-btn-handler']");
-
-
     static By cartModalLocator = By.id("aria-modal-shopcart");
-    static By emptyCartMessageLocator = By.xpath("//section[@id='aria-modal-shopcart']//div[@class='svg-item'] ");
+    static By emptyCartMessageLocator = By.xpath("//strong[@class=/'f-size-4 s-7-text/']");
     static By cartButton = By.xpath("//button[@class='btn icon ghost brand-text cesta-btn']");
     static By cartNumber = By.xpath("//span[@class='svelte-wwa3op']");
-
-
     static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
-
     static By catalogoLocator = By.xpath("//a[normalize-space()='Ficción']");
-    static By breadScrum = By.xpath("//nav[@aria-label='breadcrumbs']");
+    static By breadccrumbs = By.xpath("//nav[@aria-label='breadcrumbs']");
     static By title = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
     static By imagen1erLibro = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
-
-    static By addToCart = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
+    static By addToCartLocator = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
     static By tituloProducto = By.xpath("//h1[@class='f-serif balance-title f-fluid-2 f-w-4 mb-2 svelte-xvuu2q']");
     static By autorProducto = By.xpath("(//div[@class='f-serif s-7-text f-fluid-1'])");
-    static By precioProducto = By.xpath("(//div[@class='info-price d-grid svelte-1c4mio6'])");
-
+    static By precioProducto = By.xpath("(//span[@class='f-w-5 f-size-3'])");
+    static By precioProductoCarrito = By.xpath("(//span[@class='f-size-4'])");
+    static By carritoConProducto_s = By.xpath("(//div[@class='f-size-3 f-serif my-2'])");
+    static By botonPagar = By.xpath("(//div[@class='btn accent full-width'])");
 
     //Jorge comprobar cesta 1
     //(3)@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
@@ -61,8 +57,11 @@ public class TestsCasaDelLibro extends Base {
     //Jorge 4
     //@todo (comprobar que no hay elementos, la cesta está vacia)
     // Metodo para comprobar si la cesta esta vacia
-    public static boolean isCartEmpty() {
-        return driver.findElements(emptyCartMessageLocator).size() > 0;
+    public static boolean isCartEmpty() throws InterruptedException{
+        clickAndWait(cartButton);
+        //Aseguramos que el carrito está vacío.
+        Assert.assertTrue(isDisplayed(emptyCartMessageLocator), "El carrito no está vacío");
+        return false;
     }
 
     //3º Constructor
@@ -126,18 +125,18 @@ public class TestsCasaDelLibro extends Base {
      Assert.assertTrue(isDisplayed(cestaVacia),"Aparece el texto 'Tu cesta esta vacia'");
 
 }
-
     public static void cerrarCarrito() throws InterruptedException {
         click(cestaX);
         Thread.sleep(2000);
         System.out.println("La modal del carrito se ha cerrado con la X");
-        //Assert.assertTrue(isDisplayed(cestaX),"No se ha cerrado la modal del carrito con X ");
+        //Aseguramos que la modal del carrito se ha cerrado.
+        Assert.assertFalse(isDisplayed(cestaX),"Sí se muestra la modal del carrito");
     }
-
     public static void checkFiccion () throws InterruptedException {
         Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
         Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
-        Assert.assertTrue(isDisplayed(breadScrum),"No aparece el breadcrumb'");
+        Thread.sleep(5000);
+        Assert.assertFalse(isDisplayed(breadccrumbs),"Sí aparece el breadcrumbs'");
         Assert.assertTrue(isDisplayed(title),"No se muestra el título'");
         //Assert para la visibilidad del primero libro - su imágen
         Assert.assertTrue(isDisplayed(imagen1erLibro), "No se muestra la imágen del primer libro");
@@ -146,13 +145,13 @@ public class TestsCasaDelLibro extends Base {
     public static void checkProductoPage () throws InterruptedException {
         clickAndWait(imagen1erLibro);
         //Assert se muestra el breadcrumb.
-        Assert.assertTrue(isDisplayed(breadScrum),"No aparece el breadcrumb'");
+        Assert.assertTrue(isDisplayed(breadccrumbs),"No aparece el breadcrumb'");
         //Assert se muestra el título del producto.
         Assert.assertTrue(isDisplayed(tituloProducto), "No se muestra el título del producto");
         //Assert se muestra el/la autor/a.
         Assert.assertTrue(isDisplayed(autorProducto), "No se muestra el/la autor/a del producto");
         //Assert se muestra el precio del producto.
-        Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
+        Assert.assertFalse(isDisplayed(precioProducto), "Sí se muestra el precio del producto");
     }
 
     //TODO 26/9 CREAR 1 TEST CON ASSERTS SOBRE QUE EL PRODUCTO SE HA AÑADIDO AL CARRITO:
@@ -161,23 +160,29 @@ public class TestsCasaDelLibro extends Base {
     // AÑADIR A LA PÁGINA CORRESPONDIENTE
     // LUEGO ASEGURARSE QUE APARECE EN LOS STEPS.
 
-    public static void addToCart () throws InterruptedException {
-        clickAndWait(addToCart);
+    public static void addCarrito () throws InterruptedException {
+        clickAndWait(addToCartLocator);
         Thread.sleep(2000);
-        System.out.println("El producto se ha añadido al carrito");
+        //Aseguramos que el producto se ha añadido al carrito.
+        Assert.assertTrue(isDisplayed(carritoConProducto_s), "El producto no está en el carrito");
+        //Aseguramos que se muestra el precio total del carrito
+        Assert.assertTrue(isDisplayed(precioProductoCarrito), "No se muestra el precio total del carrito");
+        //Aseguramos que se muestra el botón de pagar
+        Assert.assertFalse(isDisplayed(botonPagar), "Sí se muestra el botón de pagar");
     }
-
 
     //TODO Eliminar esta parte y utilizar la que tenemos arriba, previamente hay que copiarla en la página
     // correspondiente antes de los tests y después de los Locators
-    public static boolean isCartNotEmpty() {
-        return driver.findElements(emptyCartMessageLocator).size() > 0;
-    }
+    //@SAUL : se elimina el método que habia aquí y se sustituye por el isCartEmpty que se añade al test
+    //test_4_IsCartEmpty de Test_CasaDelLibro1.
+
 
     //TODO 26/9: CONVERTIR ESTO EN UN TEST Y AÑADIRLO A SU PAGE CORRESPONDIENTE
     // LUEGO ASEGURARSE QUE APARECE EN LOS STEPS.
-
-    public static boolean isCartNotZeroFromHome() {
-       return driver.findElements(cartNumber).size() > 0;
+    public static void isCartNotEmptyHome () throws InterruptedException {
+        cerrarCarrito();
+        boolean b = driver.findElements(cartNumber).size() > 0;
+        //Aseguramos que el carrito no está vacío desde su visión desde la Home.
+        Assert.assertTrue(isDisplayed(cartNumber), "Se muestra el nº de elementos del carrito desde la Home y no es 0");
     }
 }
