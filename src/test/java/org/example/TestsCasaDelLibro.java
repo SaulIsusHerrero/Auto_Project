@@ -38,9 +38,9 @@ public class TestsCasaDelLibro extends Base {
     static By title = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
     static By imagen1erLibro = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
     static By addToCartLocator = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
-    static By tituloProducto = By.xpath("//h1[@class='f-serif balance-title f-fluid-2 f-w-4 mb-2 svelte-xvuu2q']");
+    static By tituloProducto = By.xpath("//span[@class='titleProducto mt-2']");
     static By autorProducto = By.xpath("(//div[@class='f-serif s-7-text f-fluid-1'])");
-    static By precioProducto = By.xpath("(//span[@class='f-w-5 f-size-3'])");
+    static By precioProducto = By.xpath("(//small[@class='f-size-2 s-5-text'])");
     static By precioProductoCarrito = By.xpath("(//span[@class='f-size-4'])");
     static By carritoConProducto_s = By.xpath("(//div[@class='f-size-3 f-serif my-2'])");
     static By botonPagar = By.xpath("(//div[@class='btn accent full-width'])");
@@ -151,7 +151,7 @@ public class TestsCasaDelLibro extends Base {
         //Assert se muestra el/la autor/a.
         Assert.assertTrue(isDisplayed(autorProducto), "No se muestra el/la autor/a del producto");
         //Assert se muestra el precio del producto.
-        Assert.assertFalse(isDisplayed(precioProducto), "Sí se muestra el precio del producto");
+        Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
     }
 
     //TODO 26/9 CREAR 1 TEST CON ASSERTS SOBRE QUE EL PRODUCTO SE HA AÑADIDO AL CARRITO:
