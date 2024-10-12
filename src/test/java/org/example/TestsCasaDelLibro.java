@@ -9,19 +9,10 @@ import org.testng.Assert;
 import java.time.Duration;
 import java.util.Locale;
 
-// Vamos a cambiar la web de los test para ver si evitamos los problemas de esperas, para ello vamos a probar con
-// la web de CasaDelLibro. Primero adaptaremos los test que ya tenemos en Bershka a CasaDelLibro, para ello:
-// - Tendremos que volver a localizar elementos y añadir nuevos locators
-// - Seguiremos los TO-DO en comentarios para ir cambiando los tests
-// - Una vez adaptado, adaptaremos la organización de todos los tests para que tengan estructura PageObject
-
-/*"Test 1 : Selecciona país/idioma"*/
 public class TestsCasaDelLibro extends Base {
-    //@SAUL: todo clean code el código. toda clase de page object tiene que tener declaración de variables, declaración de selectores, constructor,metodos
     //1º Variables
     protected static WebDriver driver;
     //2º Locators
-    //TODO DONE: localizar el botón "Confirmar preferencias", lo podemos llamar p.e. "confirmChoiceCookiesLocator"
     static By popupCookies = By.xpath("//div[@id='onetrust-group-container']");
     static By configurarCookies = By.xpath("//button[@id='onetrust-pc-btn-handler']");
     static By rechazarCookies = By.xpath("//button[@id='onetrust-reject-all-handler']");
@@ -45,23 +36,16 @@ public class TestsCasaDelLibro extends Base {
     static By carritoConProducto_s = By.xpath("(//div[@class='f-size-3 f-serif my-2'])");
     static By botonPagar = By.xpath("(//div[@class='btn accent full-width'])");
 
-    //Jorge comprobar cesta 1
-    //(3)@todo Categoría: Difícil -- comprobar que se abre la pestaña de la cesta. Pista, hay un localizador (#aria-modal-shopcart) que tiene un atributo cuyo valor cambia cuando aparece la cesta.
     public static boolean isCartOpen() {
         WebElement cartModal = driver.findElement(cartModalLocator);
         String ariaExpanded = cartModal.getAttribute("aria-expanded");
-        return "false".equals(ariaExpanded);
-    }
+        return "false".equals(ariaExpanded);    }
 
-    //TODO: Vamos a dejar este método por ahora sin eliminar, quizás nos sirva
-    //Jorge 4
-    //@todo (comprobar que no hay elementos, la cesta está vacia)
-    // Metodo para comprobar si la cesta esta vacia
     public static boolean isCartEmpty() throws InterruptedException{
-        clickAndWait(cartButton);
-        //Aseguramos que el carrito está vacío.
-        Assert.assertTrue(isDisplayed(emptyCartMessageLocator), "El carrito no está vacío");
-        return false;
+    clickAndWait(cartButton);
+    //Assert para asegurar que el carrito está vacío.
+    Assert.assertTrue(isDisplayed(emptyCartMessageLocator), "El carrito no está vacío");
+    return false;
     }
 
     //3º Constructor
@@ -71,16 +55,14 @@ public class TestsCasaDelLibro extends Base {
     }
 
     //4º Methods
-    //TODO: Como CasaDelLibro no tiene selector de país en la primera página, vamos solamente a Aceptar Cookies
     public static void cookiesPageElements() throws InterruptedException {
-        //Paso 1.Ir a la web
+        //Paso 1. Ir a la web.
         System.out.println("Se ha ejecutado el primer test");
         driver.manage().window().maximize();
-        //driver.get("https://www.bershka.com/");
         driver.get("https://www.casadellibro.com/");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        //Paso 2. Comprobar los elementos por defecto
+        //Paso 2. Comprobar los elementos por defecto.
         String textoConfigurarCookies = "";
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         textoConfigurarCookies = driver.findElement(configurarCookies).getText().trim().toLowerCase(Locale.ROOT);
@@ -95,10 +77,7 @@ public class TestsCasaDelLibro extends Base {
         Assert.assertEquals(textoRechazarCookies, "rechazar", "Error, el texto del botón de rechazar no es el correcto");
     }
 
-    
-    // TODO: He separado los tests en Asserts, que luego añadimos a la lista de ejecuones en el @test,
-    //  así es más fácil saber dónde falla, y elegimos el orden de las ejeciones
-        public static void acceptCookies() throws InterruptedException {
+    public static void acceptCookies() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         /** Aceptar pop-up de cookies */
             Thread.sleep(1000);
@@ -107,24 +86,21 @@ public class TestsCasaDelLibro extends Base {
         Assert.assertFalse(isDisplayed(popupCookies), "No se ha cerrado el pop up de cookies");
         }
 
- public static void carritoPageDefaultElements() throws InterruptedException {
+    public static void carritoPageDefaultElements() throws InterruptedException {
         //TODO: Adaptamos este test al carrito de CasaDelLibro
         //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
         Thread.sleep(1000);
         clickAndWait(cartButton);
-     Thread.sleep(3000);
+        Thread.sleep(3000);
 
-// TODO: Deberes 5 de Septiembre:
-//  1. Crear un assert para comprobar que sale el modal de carrito
+     //1. Assert para comprobar que sale el modal de carrito.
      Assert.assertFalse(isDisplayed(cartModalLocator),"No se muestra el modal del carrito");
-//  2. Comprobar que hay un título "Tu cesta"
+     //2. Comprobar que hay un título "Tu cesta"
      Assert.assertTrue(isDisplayed(cestaTitulo), "Titulo 'Tu cesta' se muestra");
-//  3. Comprobar que hay un botón "x" para cerrar el modal
+     //3. Comprobar que hay un botón "x" para cerrar el modal
      Assert.assertTrue(isDisplayed(cestaX), "Si hay un boton X de Cesta");
-//  4. Asegurarnos que aparece el texto "Tu cesta está vacía"
-     Assert.assertTrue(isDisplayed(cestaVacia),"Aparece el texto 'Tu cesta esta vacia'");
-
-}
+     //4. Asegurarnos que aparece el texto "Tu cesta está vacía"
+     Assert.assertTrue(isDisplayed(cestaVacia),"Aparece el texto 'Tu cesta esta vacia'");}
     public static void cerrarCarrito() throws InterruptedException {
         click(cestaX);
         Thread.sleep(2000);
@@ -153,13 +129,6 @@ public class TestsCasaDelLibro extends Base {
         //Assert se muestra el precio del producto.
         Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
     }
-
-    //TODO 26/9 CREAR 1 TEST CON ASSERTS SOBRE QUE EL PRODUCTO SE HA AÑADIDO AL CARRITO:
-    // METER ADDTOCART EN EL TEST
-    // METER ASSERTS SOBRE ELEMENTOS DEL CARRITO LLENO (NO OLVIDAR PRECIO NI BOTÓN DE PAGAR)
-    // AÑADIR A LA PÁGINA CORRESPONDIENTE
-    // LUEGO ASEGURARSE QUE APARECE EN LOS STEPS.
-
     public static void addCarrito () throws InterruptedException {
         clickAndWait(addToCartLocator);
         Thread.sleep(2000);
@@ -169,16 +138,9 @@ public class TestsCasaDelLibro extends Base {
         Assert.assertTrue(isDisplayed(precioProductoCarrito), "No se muestra el precio total del carrito");
         //Aseguramos que se muestra el botón de pagar
         Assert.assertFalse(isDisplayed(botonPagar), "Sí se muestra el botón de pagar");
+        System.out.println("Se ha añadido el producto al carrito y ya no está vacío.");
     }
 
-    //TODO Eliminar esta parte y utilizar la que tenemos arriba, previamente hay que copiarla en la página
-    // correspondiente antes de los tests y después de los Locators
-    //@SAUL : se elimina el método que habia aquí y se sustituye por el isCartEmpty que se añade al test
-    //test_4_IsCartEmpty de Test_CasaDelLibro1.
-
-
-    //TODO 26/9: CONVERTIR ESTO EN UN TEST Y AÑADIRLO A SU PAGE CORRESPONDIENTE
-    // LUEGO ASEGURARSE QUE APARECE EN LOS STEPS.
     public static void isCartNotEmptyHome () throws InterruptedException {
         cerrarCarrito();
         boolean b = driver.findElements(cartNumber).size() > 0;

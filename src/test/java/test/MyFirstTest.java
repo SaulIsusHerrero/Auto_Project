@@ -37,7 +37,7 @@ public class MyFirstTest  {
     }
 
     @org.junit.jupiter.api.Test
-    @DisplayName("Test 1 : Selecciona país/idioma y encuentra el logo de BERSHKA")
+    @DisplayName("Test 1 : acceder a La Casa del Libro y añadir a cesta un producto.")
     public void test_1_my_fist_test() throws InterruptedException {
 
         try{

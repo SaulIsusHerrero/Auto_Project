@@ -35,8 +35,4 @@ public class Step {
         producto.checkProductoPage();
         producto.addCarrito();
     }
-    public void manageHome() throws InterruptedException{
-        HomePage home = new HomePage(driver);
-        home.isCartNotEmptyHome();
-    }
 }
