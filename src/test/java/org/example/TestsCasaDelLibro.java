@@ -3,6 +3,7 @@ package org.example;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -24,8 +25,8 @@ public class TestsCasaDelLibro extends Base {
     static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
-    static By catalogoLocator = By.xpath("//a[normalize-space()='Ficción']");
-    static By breadccrumbs = By.xpath("//nav[@aria-label='breadcrumbs']");
+    static By catalogoLocator = By.xpath("//a[normalize-space()='Ofertas']");
+    static By breadCrumbs = By.xpath("//nav[@aria-label='breadcrumbs']");
     static By title = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
     static By imagen1erLibro = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
     static By addToCartLocator = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
@@ -35,11 +36,18 @@ public class TestsCasaDelLibro extends Base {
     static By precioProductoCarrito = By.xpath("(//span[@class='f-size-4'])");
     static By carritoConProducto_s = By.xpath("(//div[@class='f-size-3 f-serif my-2'])");
     static By botonPagar = By.xpath("(//div[@class='btn accent full-width'])");
+    static By buscador = By.xpath("(//div[@class='buscador svelte-10coea1'])");
+    static By buscadorAbierto = By.xpath("(//h1[@class='x-title4-sm x-title4 x-flex x-h-32 x-items-center x-pt-16 x-pl-24 x-uppercase x-text-neutral-90 desktop:x-pl-0 desktop:x-pt-0'])");
+    static By resultados = By.xpath("//div[contains(@class, 'product-list')]//div[contains(@class, 'product-item')]");
+    static By disponibilidadLibrerias = By.xpath("//button[@class='like-a-link accent-text']");
+    static By semiModalDisponibilidad = By.xpath("//div[@class='d-flex align-center pl-3 py-1']");
+    static By cerrarDisponibilidadLibrerias = By.xpath("//button[@class='btn ghost icon ml-auto']");
 
     public static boolean isCartOpen() {
         WebElement cartModal = driver.findElement(cartModalLocator);
         String ariaExpanded = cartModal.getAttribute("aria-expanded");
-        return "false".equals(ariaExpanded);    }
+        return "false".equals(ariaExpanded);
+    }
 
     public static boolean isCartEmpty() throws InterruptedException{
     clickAndWait(cartButton);
@@ -108,11 +116,13 @@ public class TestsCasaDelLibro extends Base {
         //Aseguramos que la modal del carrito se ha cerrado.
         Assert.assertFalse(isDisplayed(cestaX),"Sí se muestra la modal del carrito");
     }
-    public static void checkFiccion () throws InterruptedException {
-        Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
-        Assert.assertTrue(isDisplayed(catalogoLocator),"No se clickó en categoria ficcion'");
+    //SAUL : Test modificado para llegar a un producto de la categoria en el breadcrumbs "Libros en promoción". Y asegurar
+    //que hay un producto en dicha categoria.
+    public static void checkOfertas () throws InterruptedException {
+
+        Assert.assertTrue(isDisplayed(catalogoLocator),"No se muestra la categoria Ofertas'");
         Thread.sleep(5000);
-        Assert.assertFalse(isDisplayed(breadccrumbs),"Sí aparece el breadcrumbs'");
+        Assert.assertFalse(isDisplayed(breadCrumbs),"Sí aparece el breadcrumbs");
         Assert.assertTrue(isDisplayed(title),"No se muestra el título'");
         //Assert para la visibilidad del primero libro - su imágen
         Assert.assertTrue(isDisplayed(imagen1erLibro), "No se muestra la imágen del primer libro");
@@ -120,15 +130,24 @@ public class TestsCasaDelLibro extends Base {
 
     public static void checkProductoPage () throws InterruptedException {
         clickAndWait(imagen1erLibro);
+        dynamicWait(tituloProducto);
         //Assert se muestra el breadcrumb.
-        Assert.assertTrue(isDisplayed(breadccrumbs),"No aparece el breadcrumb'");
+        Assert.assertTrue(isDisplayed(breadCrumbs),"No aparece el breadcrumb'");
         //Assert se muestra el título del producto.
         Assert.assertTrue(isDisplayed(tituloProducto), "No se muestra el título del producto");
         //Assert se muestra el/la autor/a.
         Assert.assertTrue(isDisplayed(autorProducto), "No se muestra el/la autor/a del producto");
         //Assert se muestra el precio del producto.
         Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
+        //Click en Disponibilidad en librerías.
+        clickAndWait(disponibilidadLibrerias);
+        Thread.sleep(5000);
+        //Aseguramos que se muestra la semi-modal de disponibilidad en librerías.
+        Assert.assertTrue(isDisplayed(semiModalDisponibilidad), "No se muestra la semi-modal de disponibilidad en librerías");
+        //Cerramos la semi-modal de disponibilidad en librerías.
+        clickAndWait(cerrarDisponibilidadLibrerias);
     }
+
     public static void addCarrito () throws InterruptedException {
         clickAndWait(addToCartLocator);
         Thread.sleep(2000);
@@ -146,5 +165,35 @@ public class TestsCasaDelLibro extends Base {
         boolean b = driver.findElements(cartNumber).size() > 0;
         //Aseguramos que el carrito no está vacío desde su visión desde la Home.
         Assert.assertTrue(isDisplayed(cartNumber), "Se muestra el nº de elementos del carrito desde la Home y no es 0");
+    }
+
+    public static void buscarProducto() throws InterruptedException {
+        // Aseguramos que el Buscador se muestra en la Home.
+        Assert.assertTrue(isDisplayed(buscador), "El Buscador no es visible");
+
+        // Esperamos que la superposición desaparezca antes de hacer clic
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("overlay")));
+
+        // Ahora hacemos clic en el buscador
+        clickAndWait(buscador);
+        Thread.sleep(5000);
+
+        // Aseguramos que el Buscador se ha abierto.
+        Assert.assertTrue(isDisplayed(buscadorAbierto), "El Buscador no se ha abierto");
+
+        //realizamos una búsqueda : "Actualidad".
+        WebElement searchBox = driver.findElement(By.xpath("//input[@type='search']"));
+        searchBox.sendKeys("Actualidad");
+        //Enviamos la búsqueda.
+        searchBox.submit();
+        Thread.sleep(3000);  // Esperamos que los resultados carguen.
+        // Aseguramos que los resultados se muestran.
+        WebElement resultadosRecuperados = driver.findElement(resultados);
+        if(Base.isDisplayed(resultados)){
+            System.out.println("Se ha recuperado almenos 1 producto");
+        }else{
+            Assert.fail("No se ha recuperado ningún producto");
+        }
     }
 }

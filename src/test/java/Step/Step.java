@@ -28,8 +28,10 @@ public class Step {
 
     public void manageCatalogo() throws InterruptedException{
         CatalogoPage catalogo = new CatalogoPage(driver);
-        catalogo.checkFiccion();
+        catalogo.checkOfertas();
+        catalogo.buscarProducto();
     }
+
     public void manageProducto() throws InterruptedException {
         ProductoPage producto = new ProductoPage(driver);
         producto.checkProductoPage();
