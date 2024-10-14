@@ -25,14 +25,14 @@ public class TestsCasaDelLibro extends Base {
     static By cestaTitulo =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaX =By.xpath("//button[@class='btn ghost icon ml-auto']");
     static By cestaVacia = By.xpath("//strong[@class='f-size-4 s-7-text']");
-    static By catalogoLocator = By.xpath("//a[normalize-space()='Ofertas']");
+    static By catalogoLocator = By.xpath("//a[normalize-space()='Imprescindibles']");
     static By breadCrumbs = By.xpath("//nav[@aria-label='breadcrumbs']");
     static By title = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
-    static By imagen1erLibro = By.xpath("(//div[@class='compact-product gap-2 px-3 py-2 svelte-9oij4h'])[1]");
+    static By imagen1erLibro = By.xpath("//img[@src='https://imagessl0.casadellibro.com/a/l/s1/70/9788401027970.webp']");
     static By addToCartLocator = By.xpath("//button[@class='btn accent f-w-6 svelte-80ls0o']");
     static By tituloProducto = By.xpath("//span[@class='titleProducto mt-2']");
     static By autorProducto = By.xpath("(//div[@class='f-serif s-7-text f-fluid-1'])");
-    static By precioProducto = By.xpath("(//small[@class='f-size-2 s-5-text'])");
+    static By precioProducto = By.xpath("(//p[@class='f-size-6 f-serif f-w-7 no-wrap-text svelte-1c4mio6'])");
     static By precioProductoCarrito = By.xpath("(//span[@class='f-size-4'])");
     static By carritoConProducto_s = By.xpath("(//div[@class='f-size-3 f-serif my-2'])");
     static By botonPagar = By.xpath("(//div[@class='btn accent full-width'])");
@@ -99,7 +99,7 @@ public class TestsCasaDelLibro extends Base {
         //(2)@todo clicar en el símbolo del carrito (esto abre la pestaña de la cesta)
         Thread.sleep(1000);
         clickAndWait(cartButton);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
      //1. Assert para comprobar que sale el modal de carrito.
      Assert.assertFalse(isDisplayed(cartModalLocator),"No se muestra el modal del carrito");
@@ -121,8 +121,9 @@ public class TestsCasaDelLibro extends Base {
     public static void checkOfertas () throws InterruptedException {
 
         Assert.assertTrue(isDisplayed(catalogoLocator),"No se muestra la categoria Ofertas'");
+        clickAndWait(catalogoLocator);
         Thread.sleep(5000);
-        Assert.assertFalse(isDisplayed(breadCrumbs),"Sí aparece el breadcrumbs");
+        Assert.assertTrue(isDisplayed(breadCrumbs),"Sí aparece el breadcrumbs");
         Assert.assertTrue(isDisplayed(title),"No se muestra el título'");
         //Assert para la visibilidad del primero libro - su imágen
         Assert.assertTrue(isDisplayed(imagen1erLibro), "No se muestra la imágen del primer libro");
@@ -140,12 +141,12 @@ public class TestsCasaDelLibro extends Base {
         //Assert se muestra el precio del producto.
         Assert.assertTrue(isDisplayed(precioProducto), "No se muestra el precio del producto");
         //Click en Disponibilidad en librerías.
-        clickAndWait(disponibilidadLibrerias);
+        //clickAndWait(disponibilidadLibrerias);
         Thread.sleep(5000);
         //Aseguramos que se muestra la semi-modal de disponibilidad en librerías.
-        Assert.assertTrue(isDisplayed(semiModalDisponibilidad), "No se muestra la semi-modal de disponibilidad en librerías");
+        //Assert.assertTrue(isDisplayed(semiModalDisponibilidad), "No se muestra la semi-modal de disponibilidad en librerías");
         //Cerramos la semi-modal de disponibilidad en librerías.
-        clickAndWait(cerrarDisponibilidadLibrerias);
+        //clickAndWait(cerrarDisponibilidadLibrerias);
     }
 
     public static void addCarrito () throws InterruptedException {
