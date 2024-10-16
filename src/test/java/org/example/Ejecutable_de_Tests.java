@@ -6,10 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import page.CookiesPage;
 
 
-public class Test_CasaDelLibro1 {
+public class Ejecutable_de_Tests {
     //1º Variables
     private WebDriver driver;
     TestsCasaDelLibro testsCasaDelLibro;
@@ -58,9 +57,8 @@ public class Test_CasaDelLibro1 {
         try{
             TestsCasaDelLibro.cookiesPageElements();
             TestsCasaDelLibro.acceptCookies();
-            System.out.println("test de buscador 'In Progress'");
-            //SAUL : lo comento porque no consigo encontrar el locator del buscador abierto.
-            //testsCasaDelLibro.buscarProducto();
+            System.out.println("test del Buscador");
+            testsCasaDelLibro.buscarProducto();
         } catch (AssertionError | Exception e) {
             e.printStackTrace();
             System.exit(-1);
@@ -68,4 +66,3 @@ public class Test_CasaDelLibro1 {
         }
     }
 }
-

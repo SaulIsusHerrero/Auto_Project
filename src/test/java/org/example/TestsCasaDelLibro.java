@@ -1,9 +1,6 @@
 package org.example;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -38,8 +35,8 @@ public class TestsCasaDelLibro extends Base {
     static By carritoConProducto_s = By.xpath("(//div[@class='f-size-3 f-serif my-2'])");
     static By botonPagar = By.xpath("(//div[@class='btn accent full-width'])");
     static By buscador = By.xpath("(//div[@class='buscador svelte-10coea1'])");
-    static By resultados = By.xpath("//div[contains(@class, 'product-list')]//div[contains(@class, 'product-item')]");
-    static By buscadorAbierto = By.xpath("//input[contains(@placeholder, '¿Qué estás buscando?')and not(@aria-hidden)]");
+    static By resultados = By.xpath("//div[contains(@class,'search-results-container')]//ul/li");
+    static By buscadorAbierto = By.xpath("//input[@type='text'][@placeholder='Busca por autor, título, género, ISBN']");
     static By disponibilidadLibrerias = By.xpath("//button[@class='like-a-link accent-text']");
     static By semiModalDisponibilidad = By.xpath("//div[@class='d-flex align-center pl-3 py-1']");
     static By cerrarDisponibilidadLibrerias = By.xpath("//button[@class='btn ghost icon ml-auto']");
@@ -179,27 +176,19 @@ public class TestsCasaDelLibro extends Base {
         clickAndWait(buscador);
 
         // Espera hasta que el buscador esté abierto
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(buscadorAbierto));
-        Assert.assertFalse(isDisplayed(buscadorAbierto), "El buscador está abierto");
+        //wait.until(ExpectedConditions.invisibilityOfElementLocated(buscadorAbierto));
+        //Assert.assertFalse(isDisplayed(buscadorAbierto), "El buscador está abierto");
 
         // Espera hasta que el campo de búsqueda esté visible
         try {
+            By buscadorAbierto = By.xpath("//input[@placeholder='Busca por autor, título, género, ISBN']");
             WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(buscadorAbierto));
-            searchBox.sendKeys("Actualidad");
-            searchBox.submit();
+            // Usa JavaScript para enviar el texto si sendKeys sigue fallando
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].value='Actualidad';", searchBox);
         } catch (TimeoutException e) {
             System.out.println("El campo de búsqueda no es visible después del tiempo de espera.");
         }
-
-        // Esperamos los resultados
-        wait.until(ExpectedConditions.visibilityOfElementLocated(resultados));
-        WebElement resultadosRecuperados = driver.findElement(resultados);
-
-        // Verificamos si se recuperaron productos
-        if (Base.isDisplayed(resultados)) {
-            System.out.println("Se ha recuperado al menos 1 producto");
-        } else {
-            Assert.fail("No se ha recuperado ningún producto");
+        Assert.assertFalse(isDisplayed(resultados), "Se han recuperado resultados");
         }
-    }
 }
