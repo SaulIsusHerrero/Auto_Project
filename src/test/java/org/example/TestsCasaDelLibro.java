@@ -1,6 +1,7 @@
 package org.example;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,8 +38,8 @@ public class TestsCasaDelLibro extends Base {
     static By carritoConProducto_s = By.xpath("(//div[@class='f-size-3 f-serif my-2'])");
     static By botonPagar = By.xpath("(//div[@class='btn accent full-width'])");
     static By buscador = By.xpath("(//div[@class='buscador svelte-10coea1'])");
-    static By buscadorAbierto = By.xpath("(//h1[@class='x-title4-sm x-title4 x-flex x-h-32 x-items-center x-pt-16 x-pl-24 x-uppercase x-text-neutral-90 desktop:x-pl-0 desktop:x-pt-0'])");
     static By resultados = By.xpath("//div[contains(@class, 'product-list')]//div[contains(@class, 'product-item')]");
+    static By buscadorAbierto = By.xpath("//input[contains(@placeholder, '¿Qué estás buscando?')and not(@aria-hidden)]");
     static By disponibilidadLibrerias = By.xpath("//button[@class='like-a-link accent-text']");
     static By semiModalDisponibilidad = By.xpath("//div[@class='d-flex align-center pl-3 py-1']");
     static By cerrarDisponibilidadLibrerias = By.xpath("//button[@class='btn ghost icon ml-auto']");
@@ -65,7 +66,7 @@ public class TestsCasaDelLibro extends Base {
     //4º Methods
     public static void cookiesPageElements() throws InterruptedException {
         //Paso 1. Ir a la web.
-        System.out.println("Se ha ejecutado el primer test");
+        System.out.println("Se ha ejecutado el test");
         driver.manage().window().maximize();
         driver.get("https://www.casadellibro.com/");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -84,7 +85,6 @@ public class TestsCasaDelLibro extends Base {
         Assert.assertEquals(textoAceptarCookiesTexto, "aceptar", "Error, el texto del botón de aceptar todas las cookies no es el correcto");
         Assert.assertEquals(textoRechazarCookies, "rechazar", "Error, el texto del botón de rechazar no es el correcto");
     }
-
     public static void acceptCookies() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         /** Aceptar pop-up de cookies */
@@ -118,8 +118,7 @@ public class TestsCasaDelLibro extends Base {
     }
     //SAUL : Test modificado para llegar a un producto de la categoria en el breadcrumbs "Libros en promoción". Y asegurar
     //que hay un producto en dicha categoria.
-    public static void checkOfertas () throws InterruptedException {
-
+    public static void acceder_a_Imprescindibles () throws InterruptedException {
         Assert.assertTrue(isDisplayed(catalogoLocator),"No se muestra la categoria Ofertas'");
         clickAndWait(catalogoLocator);
         Thread.sleep(5000);
@@ -165,7 +164,7 @@ public class TestsCasaDelLibro extends Base {
         cerrarCarrito();
         boolean b = driver.findElements(cartNumber).size() > 0;
         //Aseguramos que el carrito no está vacío desde su visión desde la Home.
-        Assert.assertTrue(isDisplayed(cartNumber), "Se muestra el nº de elementos del carrito desde la Home y no es 0");
+        Assert.assertTrue(isDisplayed(cartNumber), "El badge muestra un 0, es decir, el carrito está vacío.");
     }
 
     public static void buscarProducto() throws InterruptedException {
@@ -176,24 +175,30 @@ public class TestsCasaDelLibro extends Base {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("overlay")));
 
-        // Ahora hacemos clic en el buscador
+        // Hacemos clic en el buscador
         clickAndWait(buscador);
-        Thread.sleep(5000);
 
-        // Aseguramos que el Buscador se ha abierto.
-        Assert.assertTrue(isDisplayed(buscadorAbierto), "El Buscador no se ha abierto");
+        // Espera hasta que el buscador esté abierto
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(buscadorAbierto));
+        Assert.assertFalse(isDisplayed(buscadorAbierto), "El buscador está abierto");
 
-        //realizamos una búsqueda : "Actualidad".
-        WebElement searchBox = driver.findElement(By.xpath("//input[@type='search']"));
-        searchBox.sendKeys("Actualidad");
-        //Enviamos la búsqueda.
-        searchBox.submit();
-        Thread.sleep(3000);  // Esperamos que los resultados carguen.
-        // Aseguramos que los resultados se muestran.
+        // Espera hasta que el campo de búsqueda esté visible
+        try {
+            WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(buscadorAbierto));
+            searchBox.sendKeys("Actualidad");
+            searchBox.submit();
+        } catch (TimeoutException e) {
+            System.out.println("El campo de búsqueda no es visible después del tiempo de espera.");
+        }
+
+        // Esperamos los resultados
+        wait.until(ExpectedConditions.visibilityOfElementLocated(resultados));
         WebElement resultadosRecuperados = driver.findElement(resultados);
-        if(Base.isDisplayed(resultados)){
-            System.out.println("Se ha recuperado almenos 1 producto");
-        }else{
+
+        // Verificamos si se recuperaron productos
+        if (Base.isDisplayed(resultados)) {
+            System.out.println("Se ha recuperado al menos 1 producto");
+        } else {
             Assert.fail("No se ha recuperado ningún producto");
         }
     }

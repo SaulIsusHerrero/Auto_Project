@@ -18,7 +18,8 @@ public class Step {
 
     public void manageCookies() throws InterruptedException {
         CookiesPage cookies = new CookiesPage(driver);
-        cookies.cookiesPageElements().acceptCookies();
+        cookies.cookiesPageElements();
+        cookies.acceptCookies();
     }
 
     public void manageCarrito() throws InterruptedException {
